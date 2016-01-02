@@ -4,12 +4,9 @@
 an AngularJS model validator.
 
   - [Offering](#offering)
-  - [Features](#features)
-  - [Use](#use)
-    - [CLI client](#cli-client)
-    - [Servlet](#servlet)
+  - [Installation](#installation)
   - [Dependency on valdr](#dependency-on-valdr)
-  - [Mapping of Bean Validation constraints to valdr constraints](#mapping-of-bean-validation-constraints-to-valdr-constraints)
+  - [Mapping of .NET DataAnnotations attributes to valdr constraints](#mapping-of--validation-constraints-to-valdr-constraints)
   - [Support](#support)
   - [License](#license)
 
@@ -18,113 +15,48 @@ an AngularJS model validator.
 valdr .NET parses C# classes for DataAnnotation attributes and extracts their information into a JavaScript file, which includes the [metadata to be used by valdr](https://github.com/netceteragroup/valdr#constraints-json). This allows to apply the exact same
 validation rules on the server and on the AngularJS client.
 
-## Features
+## Installation
 
-- _offline use:_ CLI client which can be integrated into build process to produce static valdr JSON which is packaged
-and delivered with the web application
-- _online use:_ Servlet which parses model classes at runtime and sends JSON back to AngularJS client (e.g. during
-client start or on-demand)
-- both Servlet and CLI client support a number of [config options](https://github.com/netceteragroup/valdr-bean-validation/blob/master/valdr-bean-validation-demo/src/main/resources/valdr-bean-validation.json)
-  - list of packages to scan
-  - list of classes in those packages to exclude
-  - list of fields to exclude
-  - list of custom annotation classes to include in JSON
-  - whether to output simple or full type names
-  - the output file name (CLI only)
-  - CORS `Access-Control-Allow-Origin` HTTP header value (Servlet only)
-- Servlet offers built-in [CORS](http://en.wikipedia.org/wiki/Cross-origin_resource_sharing) support
-
-## Use
-
-Check out the [demo](valdr-bean-validation-demo) for usage samples of both CLI client and Servlet.
-
-```xml
-<dependency>
-  <groupId>com.github.valdr</groupId>
-  <artifactId>valdr-bean-validation</artifactId>
-  <version>see-latest-version-at-the-top-of-this-page</version>
-</dependency>
+Install the [Nuget package](https://www.nuget.org/packages/Nca.Valdr)
+```bash
+PM> Install-Package Nca.Valdr
 ```
 
-### CLI client
-
-Example of Maven integration:
-```xml
-<build>
-  <plugins>
-    <plugin>
-      <groupId>org.codehaus.mojo</groupId>
-      <artifactId>exec-maven-plugin</artifactId>
-      <version>${exec-maven-plugin.version}</version>
-      <executions>
-        <execution>
-          <id>process-bean-validation-annotations</id>
-          <phase>process-classes</phase>
-          <goals>
-            <goal>java</goal>
-          </goals>
-        </execution>
-      </executions>
-      <configuration>
-        <mainClass>com.github.valdr.cli.ValdrBeanValidation</mainClass>
-        <arguments>
-          <!-- optional, if omitted valdr-bean-validation.json is expected at the root of the class path -->
-          <argument>-cf</argument>
-          <argument>my-config.json</argument>
-          <!-- optional, overrides any 'outputFile' which may have been set in the above config file -->
-          <argument>-outputFile</argument>
-          <argument>${basedir}/src/main/webapp/validation/validation.json</argument>
-        </arguments>
-      </configuration>
-    </plugin>
-  </plugins>
-</build>
+In Visual Studio, right-click your project and under Properties/Build Events add the following Post-build event:
+```bash
+$(SolutionDir).build\Nca.Valdr.exe -i:$(TargetDir)$(TargetFileName) -n:MyNamespace -o:$(ProjectDir)app\app.valdr.js -a:app
 ```
 
-### Servlet
-
-Example of `web.xml`:
-```xml
-<servlet>
-  <servlet-name>valdr Bean Validation Servlet</servlet-name>
-  <servlet-class>com.github.valdr.ValidationRulesServlet</servlet-class>
-  <!-- if omitted valdr-bean-validation.json is expected at the root of the class path -->
-  <init-param>
-    <param-name>configFile</param-name>
-    <param-value>my-config.json</param-value>
-  </init-param>
-</servlet>
-```
+Nca.Valdr.exe accepts the following parameters:
+- ```-i:``` input assembly filename
+- ```-n:``` namespace filter (default: all)
+- ```-o:``` output file (JavaScript)
+- ```-a:``` AngularJS application name (default: app)
 
 ## Dependency on valdr
 
-valdr Bean Validation is dependent on valdr in two ways:
+valdr .NET Validation is dependent on valdr in two ways:
 
 * [JSON structure](https://github.com/netceteragroup/valdr#constraints-json) is defined by valdr
 * validators listed in the JSON document have to be either a [supported valdr valdidator]
 (https://github.com/netceteragroup/valdr#built-in-validators) or one of your [custom JavaScript validators](https://github.com/netceteragroup/valdr#adding-custom-validators)
 
-To indicate which valdr version a specific valdr Bean Validation version supports there's a simple rule: the first
-digit of the valdr Bean Validation version denotes the supported valdr version. Version 1.x will support valdr 1.
-This means that valdr Bean Validation 1.x+1 may introduce breaking changes over 1.x because the second version digit
-kind-of represents the "major" version.
+## Mapping of .NET DataAnnotations attributes to valdr constraints
 
-## Mapping of Bean Validation constraints to valdr constraints
+The [.NET DataAnnotations](https://msdn.microsoft.com/en-us/library/system.componentmodel.dataannotations%28v=vs.110%29.aspx) attributes defines the mapping of .NET Validation to valdr constraints.
 
-The [BuiltInConstraint.java](https://github.com/netceteragroup/valdr-bean-validation/blob/master/valdr-bean-validation/src/main/java/com/github/valdr/BuiltInConstraint.java) enum defines the mapping of Bean Validation constraints to valdr constraints.
-
-| Bean Validation | valdr | Comment |
+| .NET DataAnnotations | valdr | Comment |
 |-----------------|-------|---------|
-| [NotNull](http://docs.oracle.com/javaee/7/api/javax/validation/constraints/NotNull.html) | [required](https://github.com/netceteragroup/valdr#required) |  |
-| [Min](http://docs.oracle.com/javaee/7/api/javax/validation/constraints/Min.html) | [min](https://github.com/netceteragroup/valdr#min--max) |  |
-| [Max](http://docs.oracle.com/javaee/7/api/javax/validation/constraints/Max.html) | [max](https://github.com/netceteragroup/valdr#min--max) |  |
-| [Size](http://docs.oracle.com/javaee/7/api/javax/validation/constraints/Size.html) | [size](https://github.com/netceteragroup/valdr#size) |  |
-| [Digits](http://docs.oracle.com/javaee/7/api/javax/validation/constraints/Digits.html) | [digits](https://github.com/netceteragroup/valdr#digits) |  |
-| [Pattern](http://docs.oracle.com/javaee/7/api/javax/validation/constraints/Pattern.html) | [pattern](https://github.com/netceteragroup/valdr#partern) | Java regex pattern is transformed to JavaScript pattern |
-| [Future](http://docs.oracle.com/javaee/7/api/javax/validation/constraints/Future.html) | [future](https://github.com/netceteragroup/valdr#future--past) |  |
-| [Past](http://docs.oracle.com/javaee/7/api/javax/validation/constraints/Past.html) | [past](https://github.com/netceteragroup/valdr#future--past) |  |
-| [Email](https://docs.jboss.org/hibernate/validator/5.1/api/org/hibernate/validator/constraints/Email.html) |[email](https://github.com/netceteragroup/valdr#email) | proprietary Hibernate Validator (not in Bean Validation spec) |
-| [URL](https://docs.jboss.org/hibernate/validator/5.1/api/org/hibernate/validator/constraints/URL.html) |[url](https://github.com/netceteragroup/valdr#url) | proprietary Hibernate Validator (not in Bean Validation spec) |
+| [Required](https://msdn.microsoft.com/en-us/library/system.componentmodel.dataannotations.requiredattribute%28v=vs.110%29.aspx) | [required](https://github.com/netceteragroup/valdr#required) |  |
+| [Range](https://msdn.microsoft.com/en-us/library/system.componentmodel.dataannotations.rangeattribute%28v=vs.110%29.aspx) | [min](https://github.com/netceteragroup/valdr#min--max) |  |
+| [Range](https://msdn.microsoft.com/en-us/library/system.componentmodel.dataannotations.rangeattribute%28v=vs.110%29.aspx) | [max](https://github.com/netceteragroup/valdr#min--max) |  |
+| [StringLength](https://msdn.microsoft.com/en-us/library/system.componentmodel.dataannotations.stringlengthattribute%28v=vs.110%29.aspx) | [size](https://github.com/netceteragroup/valdr#size) |  |
+| | [digits](https://github.com/netceteragroup/valdr#digits) | unsupported |
+| [RegularExpression](https://msdn.microsoft.com/en-us/library/system.componentmodel.dataannotations.regularexpressionattribute%28v=vs.110%29.aspx) | [pattern](https://github.com/netceteragroup/valdr#partern) |  |
+| | [future](https://github.com/netceteragroup/valdr#future--past) | unsupported |
+| | [past](https://github.com/netceteragroup/valdr#future--past) | unsupported |
+| [EmailAddress](https://msdn.microsoft.com/en-us/library/system.componentmodel.dataannotations.emailaddressattribute%28v=vs.110%29.aspx) |[email](https://github.com/netceteragroup/valdr#email) |  |
+| [URL](https://msdn.microsoft.com/en-us/library/system.componentmodel.dataannotations.urlattribute%28v=vs.110%29.aspx) |[url](https://github.com/netceteragroup/valdr#url) |  |
 
 ## Support
 
