@@ -6,7 +6,7 @@ an AngularJS model validator.
   - [Offering](#offering)
   - [Installation](#installation)
   - [Dependencies](#dependencies)
-  - [Mapping of .NET DataAnnotations attributes to valdr constraints](#mapping-of-.NET-DataAnnotations-attributes-to-valdr-constraints)
+  - [Mapping of .NET DataAnnotations attributes to valdr constraints](#mapping-of-net-dataannotations-attributes-to-valdr-constraints)
   - [License](#license)
 
 ## Offering
@@ -16,7 +16,7 @@ validation rules on the server and on the AngularJS client.
 
 ## Installation
 
-Install the [Nuget package](https://www.nuget.org/packages/Nca.Valdr), which will create a solution folder called .build.
+Install the [Nuget package](https://www.nuget.org/packages/Nca.Valdr), which will create the solution folder called .build.
 ```
 PM> Install-Package Nca.Valdr
 ```
