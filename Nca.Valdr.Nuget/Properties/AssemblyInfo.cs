@@ -6,10 +6,10 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Nca.Valdr.Nuget")]
-[assembly: AssemblyDescription("Project template made by EyeCatch (http://www.eyecatch.no/)")]
+[assembly: AssemblyDescription("NuGet package")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Netcetera - Quality Software Engineering")]
-[assembly: AssemblyProduct("Nca.Valdr.Nuget")]
+[assembly: AssemblyProduct("Nca.Valdr")]
 [assembly: AssemblyCopyright("Copyright © Netcetera - Quality Software Engineering 2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -34,3 +34,4 @@ using System.Runtime.InteropServices;
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
+[assembly: AssemblyInformationalVersion("1.0.0")]

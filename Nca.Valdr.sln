@@ -6,6 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nca.Valdr", "Nca.Valdr\Nca.Valdr.csproj", "{9663499A-BC8F-4F65-B985-1CCE8A33A96D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nca.Valdr.Tests", "Nca.Valdr.Tests\Nca.Valdr.Tests.csproj", "{067456C0-086C-46A8-B37F-1405717B7BFC}"
+	ProjectSection(ProjectDependencies) = postProject
+		{0451BAEF-DF2E-4B98-8644-94EE9415E389} = {0451BAEF-DF2E-4B98-8644-94EE9415E389}
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8A71605C-7B65-43CA-B6C5-CD4560D1F891}"
 	ProjectSection(SolutionItems) = preProject

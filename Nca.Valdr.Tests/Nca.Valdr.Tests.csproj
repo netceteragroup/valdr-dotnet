@@ -76,6 +76,9 @@
     <Content Include="app\app.valdr.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>$(SolutionDir).build\Nca.Valdr.exe -i:$(TargetDir)$(TargetFileName) -n:Nca.Valdr.Tests.DTOs -o:$(ProjectDir)app\app.valdr.js -a:app</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

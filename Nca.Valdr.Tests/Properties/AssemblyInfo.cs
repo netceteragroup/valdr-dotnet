@@ -5,10 +5,10 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Nca.Valdr.Tests")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Test library")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Netcetera - Quality Software Engineering")]
-[assembly: AssemblyProduct("Nca.Valdr.Tests")]
+[assembly: AssemblyProduct("Nca.Valdr")]
 [assembly: AssemblyCopyright("Copyright © Netcetera - Quality Software Engineering 2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

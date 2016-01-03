@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("Nca.Valdr")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription(".NET plugin for valdr, an AngularJS model validator.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Netcetera - Quality Software Engineering")]
 [assembly: AssemblyProduct("Nca.Valdr")]
