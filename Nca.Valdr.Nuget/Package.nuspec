@@ -27,8 +27,8 @@ This allows to apply the exact same validation rules on the server and on the An
     <tags>valdr</tags>
   </metadata>
   <files>
-    <file src="..\Nca.Valdr\bin\Release\Nca.Valdr.exe" target="tools" />
-    <file src="..\Nca.Valdr\bin\Release\Newtonsoft.Json.dll" target="tools" />
+    <file src="lib\Nca.Valdr.exe" target="tools" />
+    <file src="lib\Newtonsoft.Json.dll" target="tools" />
     <file src="tools\" target="tools" />
   </files>
 </package>
