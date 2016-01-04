@@ -1,5 +1,10 @@
 # valdr .NET Validation
 
+[![Build status](https://ci.appveyor.com/api/projects/status/v9o6s7bkq04k8hlr?svg=true)](https://ci.appveyor.com/project/ilbertz/valdr-dotnet)
+[![NuGet](https://img.shields.io/nuget/v/Nca.Valdr.svg)](https://www.nuget.org/packages/Nca.Valdr)
+[![NuGet](https://img.shields.io/nuget/dt/Nca.Valdr.svg)](https://www.nuget.org/packages/Nca.Valdr)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://github.com/netceteragroup/valdr-dotnet/LICENSE.txt)
+
 .NET plugin for [valdr](https://github.com/netceteragroup/valdr),
 an AngularJS model validator.
 
