@@ -118,18 +118,18 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Address_ZipCode" xml:space="preserve">
-    <value>PLZ</value>
+    <value>Zip code</value>
   </data>
   <data name="Generic_MaximumLength" xml:space="preserve">
-    <value>{0} muss zwischen {1} und {2} Zeichen sein.</value>
+    <value>{0} must be between {1} and {2} characters.</value>
   </data>
   <data name="Generic_RequiredField" xml:space="preserve">
-    <value>{0} ist obligatorisch.</value>
+    <value>{0} is required.</value>
   </data>
   <data name="Person_FirstName" xml:space="preserve">
-    <value>Vorname</value>
+    <value>First name</value>
   </data>
   <data name="Person_LastName" xml:space="preserve">
-    <value>Nachname</value>
+    <value>Last name</value>
   </data>
 </root>

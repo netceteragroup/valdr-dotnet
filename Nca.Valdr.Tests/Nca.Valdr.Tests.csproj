@@ -46,6 +46,11 @@
   <ItemGroup>
     <Compile Include="DTOs\AddressDto.cs" />
     <Compile Include="DTOs\PersonDto.cs" />
+    <Compile Include="DTOs\Texts.en.Designer.cs">
+      <DependentUpon>Texts.en.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="DTOs\Texts.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -61,6 +66,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="DTOs\Texts.en.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Texts.en.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="DTOs\Texts.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Texts.Designer.cs</LastGenOutput>

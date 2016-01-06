@@ -61,7 +61,7 @@ namespace Nca.Valdr.Tests.DTOs {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Zip code.
+        ///   Looks up a localized string similar to PLZ.
         /// </summary>
         internal static string Address_ZipCode {
             get {
@@ -70,7 +70,7 @@ namespace Nca.Valdr.Tests.DTOs {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} must be between {1} and {2} characters..
+        ///   Looks up a localized string similar to {0} muss zwischen {1} und {2} Zeichen sein..
         /// </summary>
         internal static string Generic_MaximumLength {
             get {
@@ -79,7 +79,7 @@ namespace Nca.Valdr.Tests.DTOs {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to {0} is required..
+        ///   Looks up a localized string similar to {0} ist obligatorisch..
         /// </summary>
         internal static string Generic_RequiredField {
             get {
@@ -88,7 +88,7 @@ namespace Nca.Valdr.Tests.DTOs {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to First name.
+        ///   Looks up a localized string similar to Vorname.
         /// </summary>
         internal static string Person_FirstName {
             get {
@@ -97,7 +97,7 @@ namespace Nca.Valdr.Tests.DTOs {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Last name.
+        ///   Looks up a localized string similar to Nachname.
         /// </summary>
         internal static string Person_LastName {
             get {

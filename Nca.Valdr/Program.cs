@@ -43,7 +43,7 @@
             if (string.IsNullOrEmpty(assemblyFile) ||
                 string.IsNullOrEmpty(outputFile))
             {
-                throw new ArgumentNullException("Parameter missing.");
+                throw new ArgumentNullException("args");
             }
 
             Console.WriteLine("{0} -> {1}", ProgramId, outputFile);
@@ -61,7 +61,7 @@
                     writer.WriteLine("        .config(config);");
                     writer.WriteLine("    config.$inject = [\"valdrProvider\"];");
                     writer.WriteLine("    function config(valdrProvider) {");
-                    writer.WriteLine("        valdrProvider.addConstraints({0})", result);
+                    writer.WriteLine("        valdrProvider.addConstraints({0});", result);
                     writer.WriteLine("}})();");
                 }
             }

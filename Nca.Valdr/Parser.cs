@@ -15,7 +15,7 @@
         private const string EmailMessage = "{0} must be a valid E-Mail address.";
         private const string UrlMessage = "{0} must be a valid URL.";
         private const string RegexMessage = "{0} must be a valid pattern.";
-        private static string AssemblyFile;
+        private static string _assemblyFile;
 
         /// <summary>
         /// Parses classes with a "DataContractAttribute" and generates the valdr constraint metadata.
@@ -26,26 +26,29 @@
         public static JObject Parse(string assemblyFile, string targetNamespace)
         {
             dynamic jsonResult = new JObject();
-            AssemblyFile = assemblyFile;
+            _assemblyFile = assemblyFile;
             AppDomain.CurrentDomain.ReflectionOnlyAssemblyResolve += (s, e) => CustomReflectionOnlyResolver(e);
             var assembly = Assembly.ReflectionOnlyLoadFrom(assemblyFile);
             var typeQuery = assembly.GetTypes()
-                .Where(t => t.IsClass && t.Namespace.StartsWith(targetNamespace) &&
+                .Where(t => t.IsClass && t.Namespace != null && t.Namespace.StartsWith(targetNamespace) &&
                             t.GetCustomAttributesData().Any(a => a.AttributeType.Name == "DataContractAttribute"));
 
             foreach (var type in typeQuery.ToList())
             {
                 var contract = type.GetCustomAttributesData()
                     .FirstOrDefault(a => a.AttributeType.Name == "DataContractAttribute");
-                var contractName = contract.NamedArguments
-                    .FirstOrDefault(n => n.MemberName == "Name");
-                var typeName = contractName.TypedValue != null && contractName.TypedValue.Value != null ?
-                    (string)contractName.TypedValue.Value : type.Name;
-                jsonResult[typeName] = new JObject();
-
-                foreach (var property in type.GetProperties(BindingFlags.Public | BindingFlags.Instance))
+                if (contract?.NamedArguments != null)
                 {
-                    GetProperty(typeName, property, jsonResult);
+                    var contractName = contract.NamedArguments
+                        .FirstOrDefault(n => n.MemberName == "Name");
+                    var typeName = contractName.TypedValue.Value != null ?
+                        (string)contractName.TypedValue.Value : type.Name;
+                    jsonResult[typeName] = new JObject();
+
+                    foreach (var property in type.GetProperties(BindingFlags.Public | BindingFlags.Instance))
+                    {
+                        GetProperty(typeName, property, jsonResult);
+                    }
                 }
             }
 
@@ -56,7 +59,7 @@
         {
             var name = new AssemblyName(args.Name);
             var assemblyPath = Path.Combine(
-                Path.GetDirectoryName(AssemblyFile),
+                Path.GetDirectoryName(_assemblyFile) ?? string.Empty,
                 name.Name + ".dll");
 
             if (File.Exists(assemblyPath))
@@ -76,7 +79,9 @@
             var url = GetPropertyAttribute(property, "UrlAttribute");
             var regex = GetPropertyAttribute(property, "RegularExpressionAttribute");
 
+#pragma warning disable S1067 // Expressions should not be too complex
             if (required == null && length == null && range == null && email == null && url == null && regex == null)
+#pragma warning restore S1067 // Expressions should not be too complex
             {
                 return;
             }
@@ -185,9 +190,12 @@
                         attr.Pattern = (string)data.ConstructorArguments[0].Value;
                     }
 
-                    foreach (var item in data.NamedArguments)
+                    if (data.NamedArguments != null)
                     {
-                        GetAttribute(attr, item.MemberName, item.TypedValue.Value);
+                        foreach (var item in data.NamedArguments)
+                        {
+                            GetAttribute(attr, item.MemberName, item.TypedValue.Value);
+                        }
                     }
 
                     return attr;
@@ -224,8 +232,6 @@
                     break;
                 case "Pattern":
                     attr.Pattern = (string)arg;
-                    break;
-                default:
                     break;
             }
         }
