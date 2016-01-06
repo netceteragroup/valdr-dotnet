@@ -1,9 +1,5 @@
 configuration: Debug
 
-environment:
-  COVERALLS_REPO_TOKEN:
-    secure: bOo4ag8pGwXb7NcSTJcBNDRnGWCH4XZU4
-
 # restore NuGet packages before running MSBuild
 before_build:
   - nuget restore
@@ -15,14 +11,6 @@ build:
 test_script:
 - ps: >-
     .\packages\OpenCover.4.6.166\tools\OpenCover.Console.exe -register:user -target:nunit-console.exe "-targetargs:""Nca.Valdr.Tests\bin\$env:CONFIGURATION\Nca.Valdr.Tests.dll"" /noshadow" -filter:"+[Nca.Valdr*]*" -output:opencoverCoverage.xml
-
-    echo $env:APPVEYOR_BUILD_NUMBER
-    echo $env:COVERALLS_REPO_TOKEN
-    echo $env:APPVEYOR_REPO_COMMIT
-    echo $env:APPVEYOR_REPO_BRANCH
-    echo $env:APPVEYOR_REPO_COMMIT_AUTHOR
-    echo $env:APPVEYOR_REPO_COMMIT_AUTHOR_EMAIL
-    echo $env:APPVEYOR_REPO_COMMIT_MESSAGE
 
     $coveralls = (Resolve-Path "packages/coveralls.net.*/tools/csmacnz.coveralls.exe").ToString()
 

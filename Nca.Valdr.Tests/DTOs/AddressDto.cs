@@ -9,10 +9,16 @@
     [DataContract(Name = "address")]
     public class AddressDto
     {
+        /// <summary>
+        /// City name
+        /// </summary>
         [DataMember(Name = "city")]
         [Required(ErrorMessageResourceType = typeof(Texts), ErrorMessageResourceName = "Generic_RequiredField")]
         public string City { get; set; }
 
+        /// <summary>
+        /// Zip code
+        /// </summary>
         [DataMember(Name = "zipCode")]
         [Required(ErrorMessageResourceType = typeof(Texts), ErrorMessageResourceName = "Generic_RequiredField")]
         [StringLength(6, ErrorMessageResourceType = typeof(Texts), ErrorMessageResourceName = "Generic_MaximumLength", MinimumLength = 4)]
