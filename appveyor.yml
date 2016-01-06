@@ -19,5 +19,11 @@ test_script:
     $coveralls = (Resolve-Path "packages/coveralls.net.*/tools/csmacnz.coveralls.exe").ToString()
 
     $env:APPVEYOR_BUILD_NUMBER
+	$env:COVERALLS_REPO_TOKEN
+	$env:APPVEYOR_REPO_COMMIT
+	$env:APPVEYOR_REPO_BRANCH
+	$env:APPVEYOR_REPO_COMMIT_AUTHOR
+	$env:APPVEYOR_REPO_COMMIT_AUTHOR_EMAIL
+	$env:APPVEYOR_REPO_COMMIT_MESSAGE
 
     & $coveralls --opencover -i opencoverCoverage.xml --repoToken $env:COVERALLS_REPO_TOKEN --commitId $env:APPVEYOR_REPO_COMMIT --commitBranch $env:APPVEYOR_REPO_BRANCH --commitAuthor $env:APPVEYOR_REPO_COMMIT_AUTHOR --commitEmail $env:APPVEYOR_REPO_COMMIT_AUTHOR_EMAIL --commitMessage $env:APPVEYOR_REPO_COMMIT_MESSAGE --jobId $env:APPVEYOR_BUILD_NUMBER --serviceName appveyor
