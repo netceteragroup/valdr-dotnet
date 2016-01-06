@@ -9,6 +9,7 @@ before_build:
   - nuget restore
 
 build:
+  project: Nca.Valdr.sln
   verbosity: minimal
 
 test_script:
