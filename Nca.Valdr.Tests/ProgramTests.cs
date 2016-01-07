@@ -26,5 +26,12 @@
             var ex = Assert.Throws<ArgumentException>(() => Program.Main(new string[] { "-a:app" }));
             Assert.That(ex.Message, Is.EqualTo("Required parameter missing."));
         }
+
+        [TestCase]
+        public void BuildJavaScriptTest()
+        {
+            var result = Program.BuildJavaScript("app", "");
+            Assert.That(result, Is.Not.Null);
+        }
     }
 }
