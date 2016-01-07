@@ -79,9 +79,7 @@
             var url = GetPropertyAttribute(property, "UrlAttribute");
             var regex = GetPropertyAttribute(property, "RegularExpressionAttribute");
 
-#pragma warning disable S1067 // Expressions should not be too complex
             if (required == null && length == null && range == null && email == null && url == null && regex == null)
-#pragma warning restore S1067 // Expressions should not be too complex
             {
                 return;
             }
