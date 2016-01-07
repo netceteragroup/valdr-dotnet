@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Nca.Valdr.Tests.DTOs {
+namespace Resources.Localization {
     using System;
     
     
@@ -22,7 +22,7 @@ namespace Nca.Valdr.Tests.DTOs {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Texts {
+    public class Texts {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace Nca.Valdr.Tests.DTOs {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Nca.Valdr.Tests.DTOs.Texts", typeof(Texts).Assembly);
@@ -51,7 +51,7 @@ namespace Nca.Valdr.Tests.DTOs {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace Nca.Valdr.Tests.DTOs {
         /// <summary>
         ///   Looks up a localized string similar to PLZ.
         /// </summary>
-        internal static string Address_ZipCode {
+        public static string Address_ZipCode {
             get {
                 return ResourceManager.GetString("Address_ZipCode", resourceCulture);
             }
@@ -72,7 +72,7 @@ namespace Nca.Valdr.Tests.DTOs {
         /// <summary>
         ///   Looks up a localized string similar to {0} muss zwischen {1} und {2} Zeichen sein..
         /// </summary>
-        internal static string Generic_MaximumLength {
+        public static string Generic_MaximumLength {
             get {
                 return ResourceManager.GetString("Generic_MaximumLength", resourceCulture);
             }
@@ -81,7 +81,7 @@ namespace Nca.Valdr.Tests.DTOs {
         /// <summary>
         ///   Looks up a localized string similar to {0} ist obligatorisch..
         /// </summary>
-        internal static string Generic_RequiredField {
+        public static string Generic_RequiredField {
             get {
                 return ResourceManager.GetString("Generic_RequiredField", resourceCulture);
             }
@@ -90,7 +90,7 @@ namespace Nca.Valdr.Tests.DTOs {
         /// <summary>
         ///   Looks up a localized string similar to Vorname.
         /// </summary>
-        internal static string Person_FirstName {
+        public static string Person_FirstName {
             get {
                 return ResourceManager.GetString("Person_FirstName", resourceCulture);
             }
@@ -99,7 +99,7 @@ namespace Nca.Valdr.Tests.DTOs {
         /// <summary>
         ///   Looks up a localized string similar to Nachname.
         /// </summary>
-        internal static string Person_LastName {
+        public static string Person_LastName {
             get {
                 return ResourceManager.GetString("Person_LastName", resourceCulture);
             }

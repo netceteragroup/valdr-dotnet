@@ -68,12 +68,14 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="DTOs\Texts.en.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Texts.en.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>Resources.Localization</CustomToolNamespace>
     </EmbeddedResource>
     <EmbeddedResource Include="DTOs\Texts.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
+      <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Texts.Designer.cs</LastGenOutput>
+      <CustomToolNamespace>Resources.Localization</CustomToolNamespace>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

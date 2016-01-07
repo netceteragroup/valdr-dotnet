@@ -240,6 +240,13 @@
             if (resourceType != null && !string.IsNullOrEmpty(resourceName))
             {
                 var resourceManager = new ResourceManager(resourceType);
+                var manifests = resourceType.Assembly.GetManifestResourceNames();
+                if (manifests.Length == 1)
+                {
+                    var manifest = manifests[0].Replace(".resources", string.Empty);
+                    resourceManager = new ResourceManager(manifest, resourceType.Assembly);
+                }
+
                 result = resourceManager.GetString(resourceName);
             }
 

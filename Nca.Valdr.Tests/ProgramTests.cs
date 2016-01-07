@@ -16,14 +16,14 @@
         [TestCase]
         public void MainInvalidParameterTest()
         {
-            var ex = Assert.Throws<ArgumentException>(() => Program.Main(new string[] { "-x:wrong"}));
+            var ex = Assert.Throws<ArgumentException>(() => Program.Main(new[] { "-x:wrong"}));
             Assert.That(ex.Message, Is.EqualTo("Invalid parameter."));
         }
 
         [TestCase]
         public void MainParameterMissingTest()
         {
-            var ex = Assert.Throws<ArgumentException>(() => Program.Main(new string[] { "-a:app" }));
+            var ex = Assert.Throws<ArgumentException>(() => Program.Main(new[] { "-a:app" }));
             Assert.That(ex.Message, Is.EqualTo("Required parameter missing."));
         }
 

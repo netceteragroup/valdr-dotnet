@@ -1,5 +1,6 @@
 ﻿namespace Nca.Valdr.Tests.DTOs
 {
+    using Resources.Localization;
     using System.ComponentModel.DataAnnotations;
     using System.Runtime.Serialization;
 
