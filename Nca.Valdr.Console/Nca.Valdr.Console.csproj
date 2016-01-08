@@ -4,15 +4,17 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{ACE3179E-714B-4317-92F3-796618C04E39}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{4F4B955C-089A-4543-A2A5-99F74208C4CC}</ProjectGuid>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Nca.Valdr</RootNamespace>
-    <AssemblyName>Nca.Valdr</AssemblyName>
+    <RootNamespace>Nca.Valdr.Console</RootNamespace>
+    <AssemblyName>Nca.Valdr.Console</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -22,6 +24,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release\</OutputPath>
@@ -44,14 +47,29 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Parser.cs" />
+    <Compile Include="CliOptions.cs" />
+    <Compile Include="CliRunner.cs" />
+    <Compile Include="CliWriter.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ValdrAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Nca.Valdr\Nca.Valdr.csproj">
+      <Project>{ace3179e-714b-4317-92f3-796618c04e39}</Project>
+      <Name>Nca.Valdr</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>xcopy /y /d "$(TargetPath)" "$(SolutionDir)Nca.Valdr.Nuget\lib\"
+xcopy /y /d "$(TargetPath).config" "$(SolutionDir)Nca.Valdr.Nuget\lib\"
+xcopy /y /d "$(BIN_PATH)Nca.Valdr.dll" "$(SolutionDir)Nca.Valdr.Nuget\lib\"
+xcopy /y /d "$(BIN_PATH)Newtonsoft.Json.dll" "$(SolutionDir)Nca.Valdr.Nuget\lib\"</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

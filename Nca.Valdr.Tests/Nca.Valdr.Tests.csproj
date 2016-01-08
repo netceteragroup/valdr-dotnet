@@ -56,7 +56,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Texts.en.resx</DependentUpon>
     </Compile>
-    <Compile Include="ProgramTests.cs" />
+    <Compile Include="CliRunnerTexts.cs" />
+    <Compile Include="CliOptionsTests.cs" />
     <Compile Include="ParserTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -79,13 +80,17 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Nca.Valdr\Nca.Valdr.csproj">
-      <Project>{9663499a-bc8f-4f65-b985-1cce8a33a96d}</Project>
-      <Name>Nca.Valdr</Name>
-    </ProjectReference>
+    <Content Include="app\app.valdr.js" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="app\app.valdr.js" />
+    <ProjectReference Include="..\Nca.Valdr.Console\Nca.Valdr.Console.csproj">
+      <Project>{4f4b955c-089a-4543-a2a5-99f74208c4cc}</Project>
+      <Name>Nca.Valdr.Console</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Nca.Valdr\Nca.Valdr.csproj">
+      <Project>{ace3179e-714b-4317-92f3-796618c04e39}</Project>
+      <Name>Nca.Valdr</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

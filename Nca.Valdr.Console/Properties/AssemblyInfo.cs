@@ -1,19 +1,18 @@
 ﻿using System.Reflection;
-using System.Resources;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Nca.Valdr.Tests")]
-[assembly: AssemblyDescription("Test library")]
+[assembly: AssemblyTitle("Nca.Valdr.Console")]
+[assembly: AssemblyDescription("Command Line Interface")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Netcetera - Quality Software Engineering")]
 [assembly: AssemblyProduct("Nca.Valdr")]
 [assembly: AssemblyCopyright("Copyright © Netcetera - Quality Software Engineering 2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
-[assembly: NeutralResourcesLanguage("de")]
 
 // Setting ComVisible to false makes the types in this assembly not visible 
 // to COM components.  If you need to access a type in this assembly from 
@@ -21,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("067456c0-086c-46a8-b37f-1405717b7bfc")]
+[assembly: Guid("4f4b955c-089a-4543-a2a5-99f74208c4cc")]
 
 // Version information for an assembly consists of the following four values:
 //

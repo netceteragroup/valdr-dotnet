@@ -2,35 +2,70 @@
 {
     using Newtonsoft.Json.Linq;
     using System;
+    using System.Globalization;
     using System.IO;
     using System.Linq;
     using System.Reflection;
     using System.Resources;
 
-    public static class Parser
+    /// <summary>
+    /// Valdr metadata generator
+    /// </summary>
+    public class Parser
     {
         private const string RequiredMessage = "{0} is requiered.";
         private const string LengthMessage = "{0} must be between {1} and {2} characters.";
         private const string RangeMessage = "{0} must be between {1} and {2}.";
         private const string EmailMessage = "{0} must be a valid E-Mail address.";
         private const string UrlMessage = "{0} must be a valid URL.";
-        private const string RegexMessage = "{0} must be a valid pattern.";
+        private const string RegexMessage = "{0} must have a valid pattern.";
         private static string _assemblyFile;
+        private static string _targetNamespace;
+        private static CultureInfo _culture;
+
+        /// <summary>
+        /// Parser contructor
+        /// </summary>
+        /// <param name="assemblyFile">Input assembly path.</param>
+        /// <param name="targetNamespace">Target namespace for parsing.</param>
+        /// <param name="culture">The culture.</param>
+        public Parser(string assemblyFile, string targetNamespace, string culture)
+        {
+            if (string.IsNullOrEmpty(assemblyFile))
+            {
+                throw new ArgumentException("Parameter \"assemblyFile\" is null or empty.");
+            }
+
+            if (!File.Exists(assemblyFile))
+            {
+                throw new ArgumentException("Specified \"assemblyFile\" not found.");
+            }
+
+            _assemblyFile = assemblyFile;
+            _targetNamespace = targetNamespace ?? string.Empty;
+            _culture = string.IsNullOrEmpty(culture) ? null : CultureInfo.GetCultureInfo(culture);
+        }
 
         /// <summary>
         /// Parses classes with a "DataContractAttribute" and generates the valdr constraint metadata.
         /// </summary>
-        /// <param name="assemblyFile">Input assembly path.</param>
-        /// <param name="targetNamespace">Target namespace for parsing.</param>
         /// <returns>JSON metadata object.</returns>
-        public static JObject Parse(string assemblyFile, string targetNamespace)
+        public JObject Parse()
         {
-            dynamic jsonResult = new JObject();
-            _assemblyFile = assemblyFile;
-            AppDomain.CurrentDomain.ReflectionOnlyAssemblyResolve += (s, e) => CustomReflectionOnlyResolver(e);
-            var assembly = Assembly.ReflectionOnlyLoadFrom(assemblyFile);
+            var jsonResult = new JObject();
+            Assembly assembly;
+            if (_culture == null)
+            {
+                AppDomain.CurrentDomain.ReflectionOnlyAssemblyResolve += (s, e) => CustomReflectionOnlyResolver(e);
+                assembly = Assembly.ReflectionOnlyLoadFrom(_assemblyFile);
+            }
+            else
+            {
+                // Load with satellite assemblies for text resources
+                assembly = Assembly.LoadFrom(_assemblyFile);
+            }
             var typeQuery = assembly.GetTypes()
-                .Where(t => t.IsClass && t.Namespace != null && t.Namespace.StartsWith(targetNamespace) &&
+                .Where(t => t.IsClass && t.Namespace != null && t.Namespace.StartsWith(_targetNamespace) &&
                             t.GetCustomAttributesData().Any(a => a.AttributeType.Name == "DataContractAttribute"));
 
             foreach (var type in typeQuery.ToList())
@@ -55,7 +90,7 @@
             return jsonResult;
         }
 
-        private static Assembly CustomReflectionOnlyResolver(ResolveEventArgs args)
+        private Assembly CustomReflectionOnlyResolver(ResolveEventArgs args)
         {
             var name = new AssemblyName(args.Name);
             var assemblyPath = Path.Combine(
@@ -70,7 +105,7 @@
             return Assembly.ReflectionOnlyLoad(args.Name);
         }
 
-        private static void GetProperty(string typeName, PropertyInfo property, dynamic jsonResult)
+        private void GetProperty(string typeName, PropertyInfo property, dynamic jsonResult)
         {
             var required = GetPropertyAttribute(property, "RequiredAttribute");
             var length = GetPropertyAttribute(property, "StringLengthAttribute");
@@ -166,7 +201,7 @@
             }
         }
 
-        private static ValdrAttribute GetPropertyAttribute(PropertyInfo prop, string attributeName)
+        private ValdrAttribute GetPropertyAttribute(PropertyInfo prop, string attributeName)
         {
             foreach (var data in prop.GetCustomAttributesData())
             {
@@ -203,7 +238,7 @@
             return null;
         }
 
-        private static void GetAttribute(ValdrAttribute attr, string name, object arg)
+        private void GetAttribute(ValdrAttribute attr, string name, object arg)
         {
             switch (name)
             {
@@ -234,7 +269,7 @@
             }
         }
 
-        private static string GetText(string text, Type resourceType, string resourceName, params object[] args)
+        private string GetText(string text, Type resourceType, string resourceName, params object[] args)
         {
             var result = text;
             if (resourceType != null && !string.IsNullOrEmpty(resourceName))
@@ -247,7 +282,7 @@
                     resourceManager = new ResourceManager(manifest, resourceType.Assembly);
                 }
 
-                result = resourceManager.GetString(resourceName);
+                result = resourceManager.GetString(resourceName, _culture);
             }
 
             if (args.Length > 0 && result != null)

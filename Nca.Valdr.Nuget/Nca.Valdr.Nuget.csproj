@@ -51,6 +51,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="lib\Nca.Valdr.Console.exe.config" />
     <None Include="NuGetPackage.ps1" />
     <None Include="NuGetSetup.ps1" />
     <None Include="NuGet.exe" />
@@ -61,16 +62,21 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="tools\init.ps1" />
-    <None Include="tools\build.psm1" />
     <None Include="tools\install.ps1" />
     <None Include="tools\uninstall.ps1" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="content\Icon.png" />
-    <Content Include="lib\Nca.Valdr.exe" />
+    <Content Include="lib\Nca.Valdr.Console.exe" />
+    <Content Include="lib\Nca.Valdr.dll" />
     <Content Include="lib\Newtonsoft.Json.dll" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Nca.Valdr\Nca.Valdr.csproj">
+      <Project>{ace3179e-714b-4317-92f3-796618c04e39}</Project>
+      <Name>Nca.Valdr</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

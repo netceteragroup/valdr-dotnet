@@ -5,15 +5,20 @@
     [TestFixture]
     public class ParserTests
     {
-        [TestCase("Nca.Valdr.Tests.dll", "Nca.Valdr.Tests.DTOs")]
-        [TestCase("Nca.Valdr.Tests.dll", "Nca.Valdr.Tests")]
-        [TestCase("Nca.Valdr.Tests.dll", "")]
-        public void ParseTest(string assemblyFile, string targetNamespace)
+        [TestCase("Nca.Valdr.Tests.dll", "Nca.Valdr.Tests.DTOs", null)]
+        [TestCase("Nca.Valdr.Tests.dll", "Nca.Valdr.Tests", null)]
+        [TestCase("Nca.Valdr.Tests.dll", null, null)]
+        [TestCase("Nca.Valdr.Tests.dll", "Nca.Valdr.Tests.DTOs", "de-CH")]
+        [TestCase("Nca.Valdr.Tests.dll", "Nca.Valdr.Tests", "de-CH")]
+        [TestCase("Nca.Valdr.Tests.dll", null, "de-CH")]
+        public void ParseTest(string assemblyFile, string targetNamespace, string culture)
         {
             // Arrange
+            var parser = new Parser(assemblyFile, targetNamespace, culture);
+
 
             // Act
-            var result = Parser.Parse(assemblyFile, targetNamespace);
+            var result = parser.Parse();
 
             // Assert
             Assert.That(result.Count, Is.EqualTo(2), "Number of children not as expected.");

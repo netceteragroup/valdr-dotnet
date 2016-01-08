@@ -21,14 +21,14 @@ validation rules on the server and on the AngularJS client.
 
 ## Installation
 
-Install the [Nuget package](https://www.nuget.org/packages/Nca.Valdr), which will create the solution folder called .build.
+To install the [Nuget package](https://www.nuget.org/packages/Nca.Valdr), run the following command in the [Package Manager Console](http://docs.nuget.org/consume/package-manager-console):
 ```
 PM> Install-Package Nca.Valdr
 ```
 
 In Visual Studio, right-click your project and under Properties/Build Events add the following Post-build event:
 ```Batchfile
-$(SolutionDir).build\Nca.Valdr.exe -i:$(TargetDir)$(TargetFileName) -o:$(ProjectDir)app\app.valdr.js
+$(SolutionDir)packages\Nca.Valdr.1.1.0\tools\Nca.Valdr.Console.exe -i:$(TargetDir)$(TargetFileName) -o:$(ProjectDir)app\app.valdr.js
 ```
 
 Nca.Valdr.exe accepts the following parameters:
@@ -36,6 +36,7 @@ Nca.Valdr.exe accepts the following parameters:
 - ```-n:``` namespace filter (default: all)
 - ```-o:``` output JavaScript filename
 - ```-a:``` AngularJS application name (default: app)
+<!-- - ```-c:``` Culture (optional for text resources) -->
 
 ## Dependencies
 
