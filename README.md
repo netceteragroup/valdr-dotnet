@@ -36,7 +36,7 @@ Nca.Valdr.exe accepts the following parameters:
 - ```-n:``` namespace filter (default: all)
 - ```-o:``` output JavaScript filename
 - ```-a:``` AngularJS application name (default: app)
-<!-- - ```-c:``` Culture (optional for text resources) -->
+- ```-c:``` Culture (optional, used for text resources)
 
 ## Dependencies
 

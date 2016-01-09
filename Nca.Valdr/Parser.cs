@@ -19,9 +19,10 @@
         private const string EmailMessage = "{0} must be a valid E-Mail address.";
         private const string UrlMessage = "{0} must be a valid URL.";
         private const string RegexMessage = "{0} must have a valid pattern.";
-        private static string _assemblyFile;
-        private static string _targetNamespace;
-        private static CultureInfo _culture;
+        private readonly string _assemblyFile;
+        private readonly string _targetNamespace;
+        private readonly CultureInfo _culture;
+        private Assembly _assembly;
 
         /// <summary>
         /// Parser contructor
@@ -36,12 +37,12 @@
                 throw new ArgumentException("Parameter \"assemblyFile\" is null or empty.");
             }
 
-            if (!File.Exists(assemblyFile))
+            _assemblyFile = assemblyFile.StartsWith("file:///") ? assemblyFile.Substring(8) : assemblyFile;
+            if (!File.Exists(_assemblyFile))
             {
-                throw new ArgumentException("Specified \"assemblyFile\" not found.");
+                throw new ArgumentException($"Specified \"assemblyFile\" not found. {_assemblyFile}");
             }
 
-            _assemblyFile = assemblyFile;
             _targetNamespace = targetNamespace ?? string.Empty;
             _culture = string.IsNullOrEmpty(culture) ? null : CultureInfo.GetCultureInfo(culture);
         }
@@ -53,44 +54,62 @@
         public JObject Parse()
         {
             var jsonResult = new JObject();
-            Assembly assembly;
-            if (_culture == null)
-            {
-                AppDomain.CurrentDomain.ReflectionOnlyAssemblyResolve += (s, e) => CustomReflectionOnlyResolver(e);
-                assembly = Assembly.ReflectionOnlyLoadFrom(_assemblyFile);
-            }
-            else
-            {
-                // Load with satellite assemblies for text resources
-                assembly = Assembly.LoadFrom(_assemblyFile);
-            }
-            var typeQuery = assembly.GetTypes()
-                .Where(t => t.IsClass && t.Namespace != null && t.Namespace.StartsWith(_targetNamespace) &&
-                            t.GetCustomAttributesData().Any(a => a.AttributeType.Name == "DataContractAttribute"));
+            var domain = AppDomain.CurrentDomain;
 
-            foreach (var type in typeQuery.ToList())
+            try
             {
-                var contract = type.GetCustomAttributesData()
-                    .FirstOrDefault(a => a.AttributeType.Name == "DataContractAttribute");
-                if (contract?.NamedArguments != null)
+                if (_culture == null)
                 {
-                    var contractName = contract.NamedArguments
-                        .FirstOrDefault(n => n.MemberName == "Name");
-                    var typeName = contractName.TypedValue.Value != null ?
-                        (string)contractName.TypedValue.Value : type.Name;
-                    jsonResult[typeName] = new JObject();
+                    domain.ReflectionOnlyAssemblyResolve += CustomAssemblyResolver;
+                    _assembly = Assembly.ReflectionOnlyLoadFrom(_assemblyFile);
+                }
+                else
+                {
+                    // Load with satellite assemblies for text resources
+                    domain.AssemblyResolve += CustomAssemblyResolver;
+                    _assembly = Assembly.LoadFrom(_assemblyFile);
+                }
 
-                    foreach (var property in type.GetProperties(BindingFlags.Public | BindingFlags.Instance))
+                var typeQuery = _assembly.GetTypes()
+                    .Where(t => t.IsClass && t.Namespace != null && t.Namespace.StartsWith(_targetNamespace) &&
+                                t.GetCustomAttributesData().Any(a => a.AttributeType.Name == "DataContractAttribute"));
+
+                foreach (var type in typeQuery.ToList())
+                {
+                    var contract = type.GetCustomAttributesData()
+                        .FirstOrDefault(a => a.AttributeType.Name == "DataContractAttribute");
+                    if (contract?.NamedArguments != null)
                     {
-                        GetProperty(typeName, property, jsonResult);
+                        var contractName = contract.NamedArguments
+                            .FirstOrDefault(n => n.MemberName == "Name");
+                        var typeName = contractName.TypedValue.Value != null
+                            ? (string) contractName.TypedValue.Value
+                            : type.Name;
+                        jsonResult[typeName] = new JObject();
+
+                        foreach (var property in type.GetProperties(BindingFlags.Public | BindingFlags.Instance))
+                        {
+                            GetProperty(typeName, property, jsonResult);
+                        }
                     }
+                }
+            }
+            finally
+            {
+                if (_culture == null)
+                {
+                    domain.ReflectionOnlyAssemblyResolve -= CustomAssemblyResolver;
+                }
+                else
+                {
+                    domain.AssemblyResolve -= CustomAssemblyResolver;
                 }
             }
 
             return jsonResult;
         }
 
-        private Assembly CustomReflectionOnlyResolver(ResolveEventArgs args)
+        private Assembly CustomAssemblyResolver(object sender, ResolveEventArgs args)
         {
             var name = new AssemblyName(args.Name);
             var assemblyPath = Path.Combine(
@@ -99,10 +118,15 @@
 
             if (File.Exists(assemblyPath))
             {
-                return Assembly.ReflectionOnlyLoadFrom(assemblyPath);
+                return _culture == null
+                    ? Assembly.ReflectionOnlyLoadFrom(assemblyPath)
+                    : Assembly.LoadFrom(assemblyPath);
             }
 
-            return Assembly.ReflectionOnlyLoad(args.Name);
+            // Load from GAC
+            return _culture == null
+                ? Assembly.ReflectionOnlyLoad(args.Name)
+                : Assembly.Load(args.Name);
         }
 
         private void GetProperty(string typeName, PropertyInfo property, dynamic jsonResult)

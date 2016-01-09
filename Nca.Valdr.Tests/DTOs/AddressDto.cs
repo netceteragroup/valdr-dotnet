@@ -15,6 +15,7 @@
         /// </summary>
         [DataMember(Name = "city")]
         [Required(ErrorMessageResourceType = typeof(Texts), ErrorMessageResourceName = "Generic_RequiredField")]
+        [Display(ResourceType = typeof(Texts), Name = "Address_City")]
         public string City { get; set; }
 
         /// <summary>

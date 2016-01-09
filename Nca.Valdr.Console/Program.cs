@@ -1,6 +1,7 @@
 ﻿namespace Nca.Valdr.Console
 {
     using System;
+    using System.Reflection;
 
     /// <summary>
     /// This class provides the entry point for the console runner.
@@ -19,14 +20,22 @@
             try
             {
                 _options = new CliOptions(args);
+
+                OutWriter.WriteLine($"Nca.Valdr -> { _options.OutputFilename} {_options.Culture}");
+
+                new CliRunner(_options).Execute();
+            }
+            catch (ReflectionTypeLoadException ex)
+            {
+                foreach (var item in ex.LoaderExceptions)
+                {
+                    OutWriter.WriteLine(item.Message);
+                }
             }
             catch (Exception ex)
             {
                 OutWriter.WriteLine(ex.Message);
-                return;
             }
-
-            new CliRunner(_options, OutWriter).Execute();
         }
     }
 }

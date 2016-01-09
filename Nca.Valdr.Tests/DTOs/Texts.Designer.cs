@@ -61,6 +61,15 @@ namespace Resources.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Ort.
+        /// </summary>
+        public static string Address_City {
+            get {
+                return ResourceManager.GetString("Address_City", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to PLZ.
         /// </summary>
         public static string Address_ZipCode {
