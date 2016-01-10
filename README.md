@@ -28,15 +28,15 @@ PM> Install-Package Nca.Valdr
 
 In Visual Studio, right-click your project and under Properties/Build Events add the following Post-build event:
 ```Batchfile
-$(SolutionDir)packages\Nca.Valdr.1.1.0\tools\Nca.Valdr.Console.exe -i:$(TargetDir)$(TargetFileName) -o:$(ProjectDir)app\app.valdr.js
+$(SolutionDir)packages\Nca.Valdr.1.1.1\tools\Nca.Valdr.Console.exe -i:$(TargetDir)$(TargetFileName) -o:$(ProjectDir)app\app.valdr.js
 ```
 
 Nca.Valdr.exe accepts the following parameters:
 - ```-i:``` input assembly filename (.dll)
 - ```-n:``` namespace filter (default: all)
 - ```-o:``` output JavaScript filename
-- ```-a:``` AngularJS application name (default: app)
-- ```-c:``` Culture (optional, used for text resources)
+- ```-a:``` AngularJS application name (default: "app")
+- ```-c:``` Culture (optional, e.g. "en" or "en-US")
 
 ## Dependencies
 

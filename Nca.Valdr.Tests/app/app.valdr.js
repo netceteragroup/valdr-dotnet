@@ -10,39 +10,39 @@
   "address": {
     "city": {
       "required": {
-        "message": "Ort ist obligatorisch."
+        "message": "City is required."
       }
     },
     "zipCode": {
       "required": {
-        "message": "PLZ ist obligatorisch."
+        "message": "Zip code is required."
       },
       "size": {
         "min": 4,
         "max": 6,
-        "message": "PLZ muss zwischen 4 und 6 Zeichen sein."
+        "message": "Zip code must be between 4 and 6 characters."
       }
     }
   },
   "person": {
     "firstName": {
       "required": {
-        "message": "Vorname ist obligatorisch."
+        "message": "First name is required."
       },
       "size": {
         "min": 1,
         "max": 30,
-        "message": "Vorname muss zwischen 1 und 30 Zeichen sein."
+        "message": "First name must be between 1 and 30 characters."
       }
     },
     "lastName": {
       "required": {
-        "message": "Nachname ist obligatorisch."
+        "message": "Last name is required."
       },
       "size": {
         "min": 4,
         "max": 31,
-        "message": "Nachname muss zwischen 4 und 31 Zeichen sein."
+        "message": "Last name must be between 4 and 31 characters."
       }
     },
     "age": {

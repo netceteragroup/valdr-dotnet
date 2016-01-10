@@ -16,7 +16,6 @@
             // Arrange
             var parser = new Parser(assemblyFile, targetNamespace, culture);
 
-
             // Act
             var result = parser.Parse();
 
@@ -35,7 +34,6 @@
         {
             // Arrange
             var parser = new Parser(assemblyFile, targetNamespace, culture);
-
 
             // Act
             var result = parser.Parse();
