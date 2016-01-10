@@ -74,12 +74,6 @@
     <Content Include="lib\Nca.Valdr.dll" />
     <Content Include="lib\Newtonsoft.Json.dll" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Nca.Valdr\Nca.Valdr.csproj">
-      <Project>{ace3179e-714b-4317-92f3-796618c04e39}</Project>
-      <Name>Nca.Valdr</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
