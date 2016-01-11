@@ -39,19 +39,19 @@
         /// Email address
         /// </summary>
         [DataMember(Name = "email")]
-        [Display(Name = "email address")]
-        [EmailAddress(ErrorMessage = "Must be a valid E-Mail address.")]
+        [Display(Name = @"email address")]
+        [EmailAddress(ErrorMessage = @"Must be a valid E-Mail address.")]
         public string Email { get; set; }
 
         /// <summary>
         /// Home page
         /// </summary>
         [DataMember(Name = "password")]
-        [RegularExpression(@"^.*(?=.{8,})(?=.*[a-z])(?=.*[A-Z])(?=.*\d).*$", ErrorMessage = "Must be a valid password.")]
+        [RegularExpression(@"^.*(?=.{8,})(?=.*[a-z])(?=.*[A-Z])(?=.*\d).*$", ErrorMessage = @"Must be a valid password.")]
         public string Password { get; set; }
 
         [DataMember(Name = "url")]
-        [Url(ErrorMessage = "Must be a valid URL.")]
+        [Url(ErrorMessage = @"Must be a valid URL.")]
         public string Url { get; set; }
     }
 }

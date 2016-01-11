@@ -45,7 +45,7 @@ valdr .NET Validation is dependent on valdr in two ways:
 * [JSON structure](https://github.com/netceteragroup/valdr#constraints-json) is defined by valdr
 * validators listed in the JSON document have to be either a [supported valdr valdidator](https://github.com/netceteragroup/valdr#built-in-validators) or one of your [custom JavaScript validators](https://github.com/netceteragroup/valdr#adding-custom-validators)
 
-Only C# classes decorated with a [DataContract](https://msdn.microsoft.com/de-de/library/system.runtime.serialization.datacontractattribute(v=vs.110).aspx) attribute will be used the generate the valdr metadata.
+Only C# classes decorated with a [DataContract](https://msdn.microsoft.com/en-us/library/system.runtime.serialization.datacontractattribute(v=vs.110).aspx) attribute will be used the generate the valdr metadata.
 
 ## Mapping of .NET DataAnnotations attributes to valdr constraints
 

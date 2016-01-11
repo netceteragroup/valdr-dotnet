@@ -1,4 +1,7 @@
-﻿namespace Nca.Valdr
+﻿using System.ComponentModel.DataAnnotations;
+using System.Runtime.Serialization;
+
+namespace Nca.Valdr
 {
     using Newtonsoft.Json.Linq;
     using System;
@@ -13,7 +16,7 @@
     /// </summary>
     public class Parser
     {
-        private const string RequiredMessage = "{0} is requiered.";
+        private const string RequiredMessage = "{0} is required.";
         private const string LengthMessage = "{0} must be between {1} and {2} characters.";
         private const string RangeMessage = "{0} must be between {1} and {2}.";
         private const string EmailMessage = "{0} must be a valid E-Mail address.";
@@ -40,7 +43,7 @@
             _assemblyFile = assemblyFile.StartsWith("file:///") ? assemblyFile.Substring(8) : assemblyFile;
             if (!File.Exists(_assemblyFile))
             {
-                throw new ArgumentException($"Specified \"assemblyFile\" not found. {_assemblyFile}");
+                throw new ArgumentException($"Specified \"assemblyFile\" not found: {_assemblyFile}");
             }
 
             _targetNamespace = targetNamespace ?? string.Empty;
@@ -72,18 +75,18 @@
 
                 var typeQuery = _assembly.GetTypes()
                     .Where(t => t.IsClass && t.Namespace != null && t.Namespace.StartsWith(_targetNamespace) &&
-                                t.GetCustomAttributesData().Any(a => a.AttributeType.Name == "DataContractAttribute"));
+                                t.GetCustomAttributesData().Any(a => a.AttributeType.Name == nameof(DataContractAttribute)));
 
                 foreach (var type in typeQuery.ToList())
                 {
                     var contract = type.GetCustomAttributesData()
-                        .FirstOrDefault(a => a.AttributeType.Name == "DataContractAttribute");
+                        .FirstOrDefault(a => a.AttributeType.Name == nameof(DataContractAttribute));
                     if (contract?.NamedArguments != null)
                     {
                         var contractName = contract.NamedArguments
-                            .FirstOrDefault(n => n.MemberName == "Name");
+                            .FirstOrDefault(n => n.MemberName == nameof(DataContractAttribute.Name));
                         var typeName = contractName.TypedValue.Value != null
-                            ? (string) contractName.TypedValue.Value
+                            ? (string)contractName.TypedValue.Value
                             : type.Name;
                         jsonResult[typeName] = new JObject();
 
@@ -131,20 +134,20 @@
 
         private void GetProperty(string typeName, PropertyInfo property, dynamic jsonResult)
         {
-            var required = GetPropertyAttribute(property, "RequiredAttribute");
-            var length = GetPropertyAttribute(property, "StringLengthAttribute");
-            var range = GetPropertyAttribute(property, "RangeAttribute");
-            var email = GetPropertyAttribute(property, "EmailAddressAttribute");
-            var url = GetPropertyAttribute(property, "UrlAttribute");
-            var regex = GetPropertyAttribute(property, "RegularExpressionAttribute");
+            var required = GetPropertyAttribute(property, nameof(RequiredAttribute));
+            var length = GetPropertyAttribute(property, nameof(StringLengthAttribute));
+            var range = GetPropertyAttribute(property, nameof(RangeAttribute));
+            var email = GetPropertyAttribute(property, nameof(EmailAddressAttribute));
+            var url = GetPropertyAttribute(property, nameof(UrlAttribute));
+            var regex = GetPropertyAttribute(property, nameof(RegularExpressionAttribute));
 
             if (required == null && length == null && range == null && email == null && url == null && regex == null)
             {
                 return;
             }
 
-            var member = GetPropertyAttribute(property, "DataMemberAttribute");
-            var display = GetPropertyAttribute(property, "DisplayAttribute");
+            var member = GetPropertyAttribute(property, nameof(DataMemberAttribute));
+            var display = GetPropertyAttribute(property, nameof(DisplayAttribute));
             var propertyName = member?.Name ?? property.Name;
             var displayName = display?.Name != null ? GetText(display.Name, display.ResourceType, display.Name) : property.Name;
             jsonResult[typeName][propertyName] = new JObject();
@@ -233,16 +236,16 @@
                 {
                     var attr = new ValdrAttribute();
 
-                    if (attributeName == "StringLengthAttribute" && data.ConstructorArguments.Count > 0)
+                    if (attributeName == nameof(StringLengthAttribute) && data.ConstructorArguments.Count > 0)
                     {
                         attr.Maximum = (int)data.ConstructorArguments[0].Value;
                     }
-                    else if (attributeName == "RangeAttribute" && data.ConstructorArguments.Count > 1)
+                    else if (attributeName == nameof(RangeAttribute) && data.ConstructorArguments.Count > 1)
                     {
                         attr.Minimum = (int)data.ConstructorArguments[0].Value;
                         attr.Maximum = (int)data.ConstructorArguments[1].Value;
                     }
-                    else if (attributeName == "RegularExpressionAttribute" && data.ConstructorArguments.Count > 0)
+                    else if (attributeName == nameof(RegularExpressionAttribute) && data.ConstructorArguments.Count > 0)
                     {
                         attr.Pattern = (string)data.ConstructorArguments[0].Value;
                     }
@@ -266,28 +269,28 @@
         {
             switch (name)
             {
-                case "Name":
+                case nameof(DisplayAttribute.Name):
                     attr.Name = (string)arg;
                     break;
-                case "ErrorMessage":
+                case nameof(RequiredAttribute.ErrorMessage):
                     attr.Message = (string)arg;
                     break;
-                case "ResourceType":
-                case "ErrorMessageResourceType":
+                case nameof(DisplayAttribute.ResourceType):
+                case nameof(RequiredAttribute.ErrorMessageResourceType):
                     attr.ResourceType = (Type)arg;
                     break;
-                case "ErrorMessageResourceName":
+                case nameof(RequiredAttribute.ErrorMessageResourceName):
                     attr.ResourceName = (string)arg;
                     break;
-                case "Minimum":
-                case "MinimumLength":
+                case nameof(RangeAttribute.Minimum):
+                case nameof(StringLengthAttribute.MinimumLength):
                     attr.Minimum = (int)arg;
                     break;
-                case "Maximum":
-                case "MaximumLength":
+                case nameof(RangeAttribute.Maximum):
+                case nameof(StringLengthAttribute.MaximumLength):
                     attr.Maximum = (int)arg;
                     break;
-                case "Pattern":
+                case nameof(RegularExpressionAttribute.Pattern):
                     attr.Pattern = (string)arg;
                     break;
             }
