@@ -47,7 +47,7 @@
     <Compile Include="..\Nca.Valdr\Properties\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
-    <Compile Include="CliWriterTexts.cs" />
+    <Compile Include="CliWriterTests.cs" />
     <Compile Include="DTOs\AddressDto.cs" />
     <Compile Include="DTOs\PersonDto.cs" />
     <Compile Include="DTOs\Texts.Designer.cs">
@@ -60,7 +60,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Texts.en.resx</DependentUpon>
     </Compile>
-    <Compile Include="CliRunnerTexts.cs" />
+    <Compile Include="CliRunnerTests.cs" />
     <Compile Include="CliOptionsTests.cs" />
     <Compile Include="ParserTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -35,7 +35,7 @@
         /// </summary>
         /// <param name="application">Application name.</param>
         /// <param name="metadata">Valdr metadata.</param>
-        /// <returns></returns>
+        /// <returns>The content of the JavaScript validation rule file (usually app.valdr.js).</returns>
         internal string BuildJavaScript(string application, string metadata)
         {
             var output = new StringBuilder();
