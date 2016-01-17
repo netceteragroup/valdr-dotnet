@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace Nca.Valdr
+﻿namespace Nca.Valdr
 {
+    using System;
+
     /// <summary>
     /// Valdr attribute
     /// </summary>

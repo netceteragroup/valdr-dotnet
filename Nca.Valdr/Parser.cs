@@ -1,15 +1,14 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Runtime.Serialization;
-
-namespace Nca.Valdr
+﻿namespace Nca.Valdr
 {
     using Newtonsoft.Json.Linq;
     using System;
+    using System.ComponentModel.DataAnnotations;
     using System.Globalization;
     using System.IO;
     using System.Linq;
     using System.Reflection;
     using System.Resources;
+    using System.Runtime.Serialization;
 
     /// <summary>
     /// Valdr metadata generator

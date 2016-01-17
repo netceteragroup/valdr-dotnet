@@ -1,9 +1,8 @@
-﻿using System.IO;
-
-namespace Nca.Valdr.Tests
+﻿namespace Nca.Valdr.Tests
 {
     using Console;
     using NUnit.Framework;
+    using System.IO;
 
     [TestFixture]
     public class CliRunnerTests
