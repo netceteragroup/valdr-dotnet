@@ -4,11 +4,9 @@
     using System;
     using System.ComponentModel.DataAnnotations;
     using System.Globalization;
-    using System.IO;
     using System.Linq;
     using System.Reflection;
     using System.Resources;
-    using System.Runtime.Serialization;
 
     /// <summary>
     /// Valdr metadata generator
@@ -21,117 +19,53 @@
         private const string EmailMessage = "{0} must be a valid E-Mail address.";
         private const string UrlMessage = "{0} must be a valid URL.";
         private const string RegexMessage = "{0} must have a valid pattern.";
-        private readonly string _assemblyFile;
-        private readonly string _targetNamespace;
-        private readonly CultureInfo _culture;
-        private Assembly _assembly;
 
         /// <summary>
-        /// Parser contructor
+        /// Parses classes from assemblies provided into valdr constraint metadata.
         /// </summary>
-        /// <param name="assemblyFile">Input assembly path.</param>
-        /// <param name="targetNamespace">Target namespace for parsing.</param>
-        /// <param name="culture">The culture.</param>
-        public Parser(string assemblyFile, string targetNamespace, string culture)
+        /// <param name="culture">Culture to use when resolving validation messages from resources.</param>
+        /// <param name="targetNamespace">String to filter namespaces checked - if provided, only namespaces starting with the filter string will be considered.</param>
+        /// <param name="attribute">Description of attribute used to identify ValdrType classes.</param>
+        /// <param name="dataMemberAttributeName">Name of attribute used to identify DataMembers (optional).</param>
+        /// <param name="assemblies">Assemblies to parse for models needing valdr constraints.</param>
+        /// <returns>JSON metadata object</returns>
+        public JObject Parse(CultureInfo culture, string targetNamespace, ValdrTypeAttributeDescriptor attribute, string dataMemberAttributeName, params Assembly[] assemblies)
         {
-            if (string.IsNullOrEmpty(assemblyFile))
-            {
-                throw new ArgumentException("Parameter \"assemblyFile\" is null or empty.");
-            }
+            targetNamespace = targetNamespace ?? string.Empty;
 
-            _assemblyFile = assemblyFile.StartsWith("file:///") ? assemblyFile.Substring(8) : assemblyFile;
-            if (!File.Exists(_assemblyFile))
-            {
-                throw new ArgumentException($"Specified \"assemblyFile\" not found: {_assemblyFile}");
-            }
-
-            _targetNamespace = targetNamespace ?? string.Empty;
-            _culture = string.IsNullOrEmpty(culture) ? null : CultureInfo.GetCultureInfo(culture);
-        }
-
-        /// <summary>
-        /// Parses classes with a "DataContractAttribute" and generates the valdr constraint metadata.
-        /// </summary>
-        /// <returns>JSON metadata object.</returns>
-        public JObject Parse()
-        {
             var jsonResult = new JObject();
-            var domain = AppDomain.CurrentDomain;
 
-            try
+            foreach (var assembly in assemblies)
             {
-                if (_culture == null)
-                {
-                    domain.ReflectionOnlyAssemblyResolve += CustomAssemblyResolver;
-                    _assembly = Assembly.ReflectionOnlyLoadFrom(_assemblyFile);
-                }
-                else
-                {
-                    // Load with satellite assemblies for text resources
-                    domain.AssemblyResolve += CustomAssemblyResolver;
-                    _assembly = Assembly.LoadFrom(_assemblyFile);
-                }
-
-                var typeQuery = _assembly.GetTypes()
-                    .Where(t => t.IsClass && t.Namespace != null && t.Namespace.StartsWith(_targetNamespace) &&
-                                t.GetCustomAttributesData().Any(a => a.AttributeType.Name == nameof(DataContractAttribute)));
+                var typeQuery = assembly.GetTypes()
+                    .Where(t => t.IsClass && t.Namespace != null && t.Namespace.StartsWith(targetNamespace) &&
+                                t.GetCustomAttributesData()
+                                    .Any(a => a.AttributeType.Name == attribute.TypeName));
 
                 foreach (var type in typeQuery.ToList())
                 {
                     var contract = type.GetCustomAttributesData()
-                        .FirstOrDefault(a => a.AttributeType.Name == nameof(DataContractAttribute));
+                        .FirstOrDefault(a => a.AttributeType.Name == attribute.TypeName);
                     if (contract?.NamedArguments != null)
                     {
                         var contractName = contract.NamedArguments
-                            .FirstOrDefault(n => n.MemberName == nameof(DataContractAttribute.Name));
+                            .FirstOrDefault(n => n.MemberName == attribute.ValdrTypePropertyName);
                         var typeName = contractName.TypedValue.Value != null
-                            ? (string)contractName.TypedValue.Value
+                            ? (string) contractName.TypedValue.Value
                             : type.Name;
                         jsonResult[typeName] = new JObject();
 
                         foreach (var property in type.GetProperties(BindingFlags.Public | BindingFlags.Instance))
                         {
-                            GetProperty(typeName, property, jsonResult);
+                            GetProperty(typeName, property, culture, dataMemberAttributeName, jsonResult);
                         }
                     }
                 }
             }
-            finally
-            {
-                if (_culture == null)
-                {
-                    domain.ReflectionOnlyAssemblyResolve -= CustomAssemblyResolver;
-                }
-                else
-                {
-                    domain.AssemblyResolve -= CustomAssemblyResolver;
-                }
-            }
-
             return jsonResult;
         }
 
-        private Assembly CustomAssemblyResolver(object sender, ResolveEventArgs args)
-        {
-            var name = new AssemblyName(args.Name);
-            var assemblyPath = Path.Combine(
-                Path.GetDirectoryName(_assemblyFile) ?? string.Empty,
-                name.Name + ".dll");
-
-            if (File.Exists(assemblyPath))
-            {
-                return _culture == null
-                    ? Assembly.ReflectionOnlyLoadFrom(assemblyPath)
-                    : Assembly.LoadFrom(assemblyPath);
-            }
-
-            // Load from GAC
-            return _culture == null
-                ? Assembly.ReflectionOnlyLoad(args.Name)
-                : Assembly.Load(args.Name);
-        }
-
-        private void GetProperty(string typeName, PropertyInfo property, dynamic jsonResult)
+        private void GetProperty(string typeName, PropertyInfo property, CultureInfo culture, string dataMemberAttributeName, dynamic jsonResult)
         {
             var required = GetPropertyAttribute(property, nameof(RequiredAttribute));
             var length = GetPropertyAttribute(property, nameof(StringLengthAttribute));
@@ -145,17 +79,16 @@
                 return;
             }
 
-            var member = GetPropertyAttribute(property, nameof(DataMemberAttribute));
+            var member = GetPropertyAttribute(property, dataMemberAttributeName);
             var display = GetPropertyAttribute(property, nameof(DisplayAttribute));
             var propertyName = member?.Name ?? property.Name;
-            var displayName = display?.Name != null ? GetText(display.Name, display.ResourceType, display.Name) : property.Name;
+            var displayName = display?.Name != null ? GetText(display.Name, display.ResourceType, display.Name, culture) : property.Name;
             jsonResult[typeName][propertyName] = new JObject();
 
             if (required != null)
             {
                 var text = GetText(required.Message ?? RequiredMessage,
-                    required.ResourceType, required.ResourceName,
-                    displayName);
+                    required.ResourceType, required.ResourceName, culture, displayName);
                 jsonResult[typeName][propertyName]["required"] = JObject.FromObject(new
                 {
                     message = text
@@ -165,7 +98,7 @@
             if (length != null)
             {
                 var text = GetText(length.Message ?? LengthMessage,
-                    length.ResourceType, length.ResourceName,
+                    length.ResourceType, length.ResourceName, culture,
                     displayName, length.Minimum, length.Maximum);
                 jsonResult[typeName][propertyName]["size"] = JObject.FromObject(new
                 {
@@ -178,7 +111,7 @@
             if (range != null)
             {
                 var text = GetText(range.Message ?? RangeMessage,
-                    range.ResourceType, range.ResourceName,
+                    range.ResourceType, range.ResourceName, culture,
                     displayName, range.Minimum, range.Maximum);
                 jsonResult[typeName][propertyName]["min"] = JObject.FromObject(new
                 {
@@ -195,7 +128,7 @@
             if (email != null)
             {
                 var text = GetText(email.Message ?? EmailMessage,
-                    email.ResourceType, email.ResourceName,
+                    email.ResourceType, email.ResourceName, culture,
                     displayName);
                 jsonResult[typeName][propertyName]["email"] = JObject.FromObject(new
                 {
@@ -206,7 +139,7 @@
             if (url != null)
             {
                 var text = GetText(url.Message ?? UrlMessage,
-                    url.ResourceType, url.ResourceName,
+                    url.ResourceType, url.ResourceName, culture,
                     displayName);
                 jsonResult[typeName][propertyName]["url"] = JObject.FromObject(new
                 {
@@ -217,7 +150,7 @@
             if (regex != null)
             {
                 var text = GetText(regex.Message ?? RegexMessage,
-                    regex.ResourceType, regex.ResourceName,
+                    regex.ResourceType, regex.ResourceName, culture,
                     displayName);
                 jsonResult[typeName][propertyName]["pattern"] = JObject.FromObject(new
                 {
@@ -295,7 +228,7 @@
             }
         }
 
-        private string GetText(string text, Type resourceType, string resourceName, params object[] args)
+        private string GetText(string text, Type resourceType, string resourceName, CultureInfo culture, params object[] args)
         {
             var result = text;
             if (resourceType != null && !string.IsNullOrEmpty(resourceName))
@@ -308,7 +241,7 @@
                     resourceManager = new ResourceManager(manifest, resourceType.Assembly);
                 }
 
-                result = resourceManager.GetString(resourceName, _culture);
+                result = resourceManager.GetString(resourceName, culture);
             }
 
             if (args.Length > 0 && result != null)
