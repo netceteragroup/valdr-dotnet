@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>Nca.Valdr.Core</id>
-    <version>1.1.1</version>
+    <version>1.1.2-alpha1</version>
     <title>valdr .NET Validator Core</title>
     <authors>Netcetera AG, Alex Ullrich</authors>
     <owners>ilbertz</owners>
