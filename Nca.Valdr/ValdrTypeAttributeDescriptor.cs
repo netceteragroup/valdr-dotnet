@@ -3,7 +3,7 @@
     using System;
 
     /// <summary>
-    /// Description of attribute used to identify classes needing valdr validation constraints generated
+    /// Description of attribute used to identify classes needing valdr validation constraints generated.  NOTE: attributes MUST use named arguments to be picked up correctly by parser
     /// </summary>
     public class ValdrTypeAttributeDescriptor 
     {

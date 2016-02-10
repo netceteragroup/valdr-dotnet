@@ -25,8 +25,8 @@
         /// </summary>
         /// <param name="culture">Culture to use when resolving validation messages from resources.</param>
         /// <param name="targetNamespace">String to filter namespaces checked - if provided, only namespaces starting with the filter string will be considered.</param>
-        /// <param name="attribute">Description of attribute used to identify ValdrType classes.</param>
-        /// <param name="dataMemberAttributeName">Name of attribute used to identify DataMembers (optional).</param>
+        /// <param name="attribute">Description of attribute used to identify ValdrType classes.  NOTE: attributes used here MUST use named arguments to be picked up correctly by parser</param>
+        /// <param name="dataMemberAttributeName">Name of attribute used to identify DataMembers (optional).  NOTE: attributes MUST use named arguments to be picked up correctly by parser</param>
         /// <param name="assemblies">Assemblies to parse for models needing valdr constraints.</param>
         /// <returns>JSON metadata object</returns>
         public JObject Parse(CultureInfo culture, string targetNamespace, ValdrTypeAttributeDescriptor attribute, string dataMemberAttributeName, params Assembly[] assemblies)
