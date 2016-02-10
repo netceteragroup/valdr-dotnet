@@ -28,6 +28,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nca.Valdr.Console", "Nca.Va
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nca.Valdr", "Nca.Valdr\Nca.Valdr.csproj", "{ACE3179E-714B-4317-92F3-796618C04E39}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nca.Valdr.Core.Nuget", "Nca.Valdr.Core.Nuget\Nca.Valdr.Core.Nuget.csproj", "{FC3BB9C3-110C-4D9A-9F9E-05D0772D43AC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -49,6 +51,9 @@ Global
 		{ACE3179E-714B-4317-92F3-796618C04E39}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ACE3179E-714B-4317-92F3-796618C04E39}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ACE3179E-714B-4317-92F3-796618C04E39}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC3BB9C3-110C-4D9A-9F9E-05D0772D43AC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC3BB9C3-110C-4D9A-9F9E-05D0772D43AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC3BB9C3-110C-4D9A-9F9E-05D0772D43AC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
