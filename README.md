@@ -2,8 +2,6 @@
 
 [![Build status](https://ci.appveyor.com/api/projects/status/v9o6s7bkq04k8hlr?svg=true)](https://ci.appveyor.com/project/ilbertz/valdr-dotnet)
 [![Coverage Status](https://coveralls.io/repos/netceteragroup/valdr-dotnet/badge.svg?branch=master&service=github)](https://coveralls.io/github/netceteragroup/valdr-dotnet?branch=master)
-[![NuGet](https://img.shields.io/nuget/v/Nca.Valdr.svg)](https://www.nuget.org/packages/Nca.Valdr)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://github.com/netceteragroup/valdr-dotnet/blob/master/LICENSE.txt)
 
 .NET plugin for [valdr](https://github.com/netceteragroup/valdr),
 an AngularJS model validator.
@@ -17,9 +15,14 @@ an AngularJS model validator.
 ## Offering
 
 valdr .NET parses C# classes for DataAnnotation attributes and extracts their information into a JavaScript file, which includes the [metadata to be used by valdr](https://github.com/netceteragroup/valdr#constraints-json). This allows to apply the exact same
-validation rules on the server and on the AngularJS client.
+validation rules on the server and on the AngularJS client.  valdr .NET core exposes only the parser logic and a few helpful attributes, so that it can be used in your own tooling as needed.  
 
-## Installation
+The biggest difference between the two packages is that valdr .NET does not support contract identification by attributes other than DataContract / DataMember.  valdr .NET core allows use of arbitrary types in place of these.
+
+## Installation - valdr .NET
+
+[![NuGet](https://img.shields.io/nuget/v/Nca.Valdr.svg)](https://www.nuget.org/packages/Nca.Valdr)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://github.com/netceteragroup/valdr-dotnet/blob/master/LICENSE.txt)
 
 To install the [Nuget package](https://www.nuget.org/packages/Nca.Valdr), run the following command in the [Package Manager Console](http://docs.nuget.org/consume/package-manager-console):
 ```
@@ -38,14 +41,71 @@ Nca.Valdr.exe accepts the following parameters:
 - ```-a:``` AngularJS application name (default: "app")
 - ```-c:``` Culture (optional, e.g. "en" or "en-US")
 
+At this time, only C# classes decorated with a [DataContract](https://msdn.microsoft.com/en-us/library/system.runtime.serialization.datacontractattribute(v=vs.110).aspx) attribute will be used the generate the valdr metadata.
+
+## Installation - valdr .NET core
+
+[![NuGet](https://img.shields.io/nuget/v/Nca.Valdr.Core.svg)](https://www.nuget.org/packages/Nca.Valdr.Core)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat)](https://github.com/netceteragroup/valdr-dotnet/blob/master/LICENSE.txt)
+
+To install the [Nuget package](https://www.nuget.org/packages/Nca.Valdr.Core), run the following command in the [Package Manager Console](http://docs.nuget.org/consume/package-manager-console):
+```
+PM> Install-Package Nca.Valdr.Core
+```
+
+This will add the core library to your project, which brings with it the parser and a couple of attributes that can be used to tag your models.  These tools that can be used to generate constraints as needed.  Here is an example that will generate constraints at runtime using the provided constraints and serve through a controller action:
+
+```csharp
+
+    public class ConstraintsController : Controller
+    {
+        private readonly IParser _constraintParser;
+
+        public LaunchController(IParser constraintParser)
+        {
+            _constraintParser = constraintParser;
+        }
+
+        [Route("/api/Constraints")]
+        [ResponseCache(Duration = 600)]
+        public IActionResult Index()
+        {
+            JObject constraints = _constraintParser.Parse(
+				//optional culture (for resolving validation messages from resource files)				
+				CultureInfo.CurrentCulture, 
+				//optional namespace filter - StartsWith search
+				null, 
+				//type and member name on type used to identify and name constraints
+                new ValdrTypeAttributeDescriptor(typeof(ValdrType), nameof(ValdrType.Name)), 
+				//type name used to identify data members
+				nameof(ValdrMember), 
+				//assembly(s) to parse for constraint generation
+                Assembly.GetAssembly(typeof (MyDTO)) 
+			);
+            
+            return new ObjectResult(constraints);
+        }
+    }
+```
+
+When using the parser directly, it is possible to specify different attributes to use for contract tagging.  The only restriction is that they need to be defined using the "Named Argument" syntax instead of constructor parameters, eg
+
+```csharp
+
+	[ValdrType(Name = "ConstraintForMyDTO")]
+	public class MyDTO
+	{
+		[ValdrMember(Name = "PropertyNameOnClientSide")]
+		public string MyProperty { get; set; }
+	}
+```
+
 ## Dependencies
 
 valdr .NET Validation is dependent on valdr in two ways:
 
 * [JSON structure](https://github.com/netceteragroup/valdr#constraints-json) is defined by valdr
 * validators listed in the JSON document have to be either a [supported valdr valdidator](https://github.com/netceteragroup/valdr#built-in-validators) or one of your [custom JavaScript validators](https://github.com/netceteragroup/valdr#adding-custom-validators)
-
-Only C# classes decorated with a [DataContract](https://msdn.microsoft.com/en-us/library/system.runtime.serialization.datacontractattribute(v=vs.110).aspx) attribute will be used the generate the valdr metadata.
 
 ## Mapping of .NET DataAnnotations attributes to valdr constraints
 
