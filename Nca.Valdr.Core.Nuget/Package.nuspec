@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Nca.Valdr.Core</id>
+    <version>1.1.2-alpha1</version>
+    <title>valdr .NET Validator Core</title>
+    <authors>Netcetera AG, Alex Ullrich</authors>
+    <owners>ilbertz</owners>
+    <description>
+      valdr .NET core provides a parser and attributes to be used for runtime generation of valdr constraints.
+    </description>
+    <releaseNotes>
+    </releaseNotes>
+    <summary>
+      .NET constraint generation for valdr, an AngularJS model validator.
+    </summary>
+    <language>en-US</language>
+    <projectUrl>https://github.com/netceteragroup/valdr-dotnet</projectUrl>
+    <iconUrl>https://raw.githubusercontent.com/netceteragroup/valdr-dotnet/master/Nca.Valdr.Core.Nuget/content/Icon.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
+    <copyright>Copyright © Netcetera 2016</copyright>
+    <dependencies>
+      <group targetFramework="net461">
+        <dependency id="Newtonsoft.Json" version="7.0.1" />
+      </group>
+    </dependencies>
+    <references></references>
+    <tags>valdr angular angularjs</tags>
+  </metadata>
+  <files>
+    <file src="lib\Nca.Valdr.dll" target="lib/net45" />
+    <file src="lib\Newtonsoft.Json.dll" target="lib/net45" />
+  </files>
+</package>

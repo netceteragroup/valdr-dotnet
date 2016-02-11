@@ -1,23 +1,27 @@
 ﻿namespace Nca.Valdr.Tests
 {
+    using System.Globalization;
+    using System.Reflection;
     using NUnit.Framework;
 
     [TestFixture]
     public class ParserTests
     {
-        [TestCase("Nca.Valdr.Tests.dll", "Nca.Valdr.Tests.DTOs", null)]
-        [TestCase("Nca.Valdr.Tests.dll", "Nca.Valdr.Tests", null)]
-        [TestCase("Nca.Valdr.Tests.dll", null, null)]
-        [TestCase("Nca.Valdr.Tests.dll", "Nca.Valdr.Tests.DTOs", "en")]
-        [TestCase("Nca.Valdr.Tests.dll", "Nca.Valdr.Tests", "en")]
-        [TestCase("Nca.Valdr.Tests.dll", null, "en")]
-        public void ParserParseEnTest(string assemblyFile, string targetNamespace, string culture)
+        [TestCase("Nca.Valdr.Tests.DTOs", null)]
+        [TestCase("Nca.Valdr.Tests", null)]
+        [TestCase(null, null)]
+        [TestCase("Nca.Valdr.Tests.DTOs", "en")]
+        [TestCase("Nca.Valdr.Tests", "en")]
+        [TestCase(null, "en")]
+        public void ParserParseEnTest(string targetNamespace, string culture)
         {
             // Arrange
-            var parser = new Parser(assemblyFile, targetNamespace, culture);
+            var parser = new Parser();
 
             // Act
-            var result = parser.Parse();
+            var specificCulture = !string.IsNullOrEmpty(culture) ? CultureInfo.CreateSpecificCulture(culture) : null;
+
+            var result = parser.Parse(specificCulture, targetNamespace, new ValdrTypeAttributeDescriptor(typeof(ValdrType), nameof(ValdrType.Name)), nameof(ValdrMember), Assembly.GetAssembly(typeof(ParserTests)));
 
             // Assert
             Assert.That(result.Count, Is.EqualTo(2), "Number of children not as expected.");
@@ -27,16 +31,18 @@
             Assert.That((string)result.SelectToken("person.url.url.message"), Is.EqualTo("Must be a valid URL."));
         }
 
-        [TestCase("Nca.Valdr.Tests.dll", "Nca.Valdr.Tests.DTOs", "de")]
-        [TestCase("Nca.Valdr.Tests.dll", "Nca.Valdr.Tests", "de")]
-        [TestCase("Nca.Valdr.Tests.dll", null, "de")]
-        public void ParserParseDeTest(string assemblyFile, string targetNamespace, string culture)
+        [TestCase("Nca.Valdr.Tests.DTOs", "de")]
+        [TestCase("Nca.Valdr.Tests", "de")]
+        [TestCase(null, "de")]
+        public void AssemblyParserParseDeTest(string targetNamespace, string culture)
         {
             // Arrange
-            var parser = new Parser(assemblyFile, targetNamespace, culture);
+            var parser = new Parser();
 
             // Act
-            var result = parser.Parse();
+            var specificCulture = !string.IsNullOrEmpty(culture) ? CultureInfo.CreateSpecificCulture(culture) : null;
+
+            var result = parser.Parse(specificCulture, targetNamespace, new ValdrTypeAttributeDescriptor(typeof(ValdrType), nameof(ValdrType.Name)), nameof(ValdrMember), Assembly.GetAssembly(typeof(ParserTests)));
 
             // Assert
             Assert.That(result.Count, Is.EqualTo(2), "Number of children not as expected.");

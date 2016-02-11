@@ -47,22 +47,23 @@
     <Compile Include="..\Nca.Valdr\Properties\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="DTOs\Texts.Designer.cs">
+      <DependentUpon>Texts.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="DTOs\Texts.en.Designer.cs">
+      <DependentUpon>Texts.en.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="ParserTests.cs" />
     <Compile Include="CliWriterTests.cs" />
     <Compile Include="DTOs\AddressDto.cs" />
     <Compile Include="DTOs\PersonDto.cs" />
-    <Compile Include="DTOs\Texts.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Texts.resx</DependentUpon>
-    </Compile>
-    <Compile Include="DTOs\Texts.en.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Texts.en.resx</DependentUpon>
-    </Compile>
     <Compile Include="CliRunnerTests.cs" />
     <Compile Include="CliOptionsTests.cs" />
-    <Compile Include="ParserTests.cs" />
+    <Compile Include="AssemblyParserTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

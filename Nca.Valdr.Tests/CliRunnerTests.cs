@@ -25,7 +25,7 @@
         public void CliRunnerBuildCompleteJavaScriptTest()
         {
             // Arrange
-            var parser = new Parser("Nca.Valdr.Tests.dll", "Nca.Valdr.Tests.DTOs", "en");
+            var parser = new AssemblyParser("Nca.Valdr.Tests.dll", "Nca.Valdr.Tests.DTOs", "en");
             var metadata = parser.Parse();
             var runner = new CliRunner(new CliOptions(new[] { "-i:x", "-o:y" }));
 
