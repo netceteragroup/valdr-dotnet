@@ -7,7 +7,7 @@
 an AngularJS model validator.
 
   - [Offering](#offering)
-  - [Installation](#installation)
+  - [Installation](#installation---valdr-net)
   - [Dependencies](#dependencies)
   - [Mapping of .NET DataAnnotations attributes to valdr constraints](#mapping-of-net-dataannotations-attributes-to-valdr-constraints)
   - [License](#license)
@@ -106,6 +106,11 @@ valdr .NET Validation is dependent on valdr in two ways:
 
 * [JSON structure](https://github.com/netceteragroup/valdr#constraints-json) is defined by valdr
 * validators listed in the JSON document have to be either a [supported valdr valdidator](https://github.com/netceteragroup/valdr#built-in-validators) or one of your [custom JavaScript validators](https://github.com/netceteragroup/valdr#adding-custom-validators)
+
+To indicate which valdr version a specific valdr .NET version supports there's a simple rule: the first
+digit of the valdr .NET version denotes the supported valdr version. Version 1.x will support valdr 1.
+This means that valdr .NET 1.x+1 may introduce breaking changes over 1.x because the second version digit
+kind-of represents the "major" version.
 
 ## Mapping of .NET DataAnnotations attributes to valdr constraints
 
