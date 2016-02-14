@@ -1,0 +1,122 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Nca.Valdr</name>
+    </assembly>
+    <members>
+        <member name="T:Nca.Valdr.IParser">
+            <summary>
+            Valdr metadata generator
+            </summary>
+        </member>
+        <member name="M:Nca.Valdr.IParser.Parse(System.Globalization.CultureInfo,System.String,Nca.Valdr.ValdrTypeAttributeDescriptor,System.String,System.Reflection.Assembly[])">
+            <summary>
+            Parses classes from assemblies provided into valdr constraint metadata.
+            </summary>
+            <param name="culture">Culture to use when resolving validation messages from resources.</param>
+            <param name="targetNamespace">String to filter namespaces checked - if provided, only namespaces starting with the filter string will be considered.</param>
+            <param name="attribute">Description of attribute used to identify ValdrType classes.  NOTE: attributes used here MUST use named arguments to be picked up correctly by parser</param>
+            <param name="dataMemberAttributeName">Name of attribute used to identify DataMembers (optional).  NOTE: attributes MUST use named arguments to be picked up correctly by parser</param>
+            <param name="assemblies">Assemblies to parse for models needing valdr constraints.</param>
+            <returns>JSON metadata object</returns>
+        </member>
+        <member name="T:Nca.Valdr.Parser">
+            <summary>
+            Valdr metadata generator
+            </summary>
+        </member>
+        <member name="M:Nca.Valdr.Parser.Parse(System.Globalization.CultureInfo,System.String,Nca.Valdr.ValdrTypeAttributeDescriptor,System.String,System.Reflection.Assembly[])">
+            <summary>
+            Parses classes from assemblies provided into valdr constraint metadata.
+            </summary>
+            <param name="culture">Culture to use when resolving validation messages from resources.</param>
+            <param name="targetNamespace">String to filter namespaces checked - if provided, only namespaces starting with the filter string will be considered.</param>
+            <param name="attribute">Description of attribute used to identify ValdrType classes.  NOTE: attributes used here MUST use named arguments to be picked up correctly by parser</param>
+            <param name="dataMemberAttributeName">Name of attribute used to identify DataMembers (optional).  NOTE: attributes MUST use named arguments to be picked up correctly by parser</param>
+            <param name="assemblies">Assemblies to parse for models needing valdr constraints.</param>
+            <returns>JSON metadata object</returns>
+        </member>
+        <member name="T:Nca.Valdr.ValdrAttribute">
+            <summary>
+            Valdr attribute.
+            </summary>
+        </member>
+        <member name="P:Nca.Valdr.ValdrAttribute.Name">
+            <summary>
+            Attribute name.
+            </summary>
+        </member>
+        <member name="P:Nca.Valdr.ValdrAttribute.Message">
+            <summary>
+            Error message.
+            </summary>
+        </member>
+        <member name="P:Nca.Valdr.ValdrAttribute.ResourceType">
+            <summary>
+            Resource type.
+            </summary>
+        </member>
+        <member name="P:Nca.Valdr.ValdrAttribute.ResourceName">
+            <summary>
+            Resource name.
+            </summary>
+        </member>
+        <member name="P:Nca.Valdr.ValdrAttribute.Minimum">
+            <summary>
+            Minimum value.
+            </summary>
+        </member>
+        <member name="P:Nca.Valdr.ValdrAttribute.Maximum">
+            <summary>
+            Maximum value.
+            </summary>
+        </member>
+        <member name="P:Nca.Valdr.ValdrAttribute.Pattern">
+            <summary>
+            Regex pattern.
+            </summary>
+        </member>
+        <member name="T:Nca.Valdr.ValdrMember">
+            <summary>
+            Attribute provided for marking properties as valdr members
+            </summary>
+        </member>
+        <member name="P:Nca.Valdr.ValdrMember.Name">
+            <summary>
+            Name used for member in constraints
+            </summary>
+        </member>
+        <member name="T:Nca.Valdr.ValdrType">
+            <summary>
+            Attribute provided for marking classes needing valdr constraints
+            </summary>
+        </member>
+        <member name="P:Nca.Valdr.ValdrType.Name">
+            <summary>
+            Name used for valdr constraint
+            </summary>
+        </member>
+        <member name="T:Nca.Valdr.ValdrTypeAttributeDescriptor">
+            <summary>
+            Description of attribute used to identify classes needing valdr validation constraints generated.  NOTE: attributes MUST use named arguments to be picked up correctly by parser
+            </summary>
+        </member>
+        <member name="P:Nca.Valdr.ValdrTypeAttributeDescriptor.TypeName">
+            <summary>
+            Name of the attribute type
+            </summary>
+        </member>
+        <member name="P:Nca.Valdr.ValdrTypeAttributeDescriptor.ValdrTypePropertyName">
+            <summary>
+            Name of property exposed by the attribute type that should drive naming in constraint generation
+            </summary>
+        </member>
+        <member name="M:Nca.Valdr.ValdrTypeAttributeDescriptor.#ctor(System.Type,System.String)">
+            <summary>
+            ValdrTypeAttributeDescriptor constructor
+            </summary>
+            <param name="type">Type to use to mark objects needing valdr constraints generated</param>
+            <param name="nameProperty">Name of property exposed by <paramref name="type"/> used to drive naming in constraint generation</param>
+        </member>
+    </members>
+</doc>

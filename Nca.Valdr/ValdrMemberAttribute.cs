@@ -5,7 +5,6 @@
     /// <summary>
     /// Attribute provided for marking properties as valdr members
     /// </summary>
-    
     [AttributeUsage(AttributeTargets.Property)]
     public class ValdrMember : Attribute
     {

@@ -70,7 +70,7 @@
   <ItemGroup>
     <Content Include="content\Icon.png" />
     <Content Include="lib\Nca.Valdr.dll" />
-    <Content Include="lib\Newtonsoft.Json.dll" />
+    <Content Include="lib\Nca.Valdr.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -4,7 +4,7 @@
     <id>Nca.Valdr</id>
     <version>1.1.1</version>
     <title>valdr .NET Validator</title>
-    <authors>Netcetera AG</authors>
+    <authors>Netcetera</authors>
     <owners>ilbertz</owners>
     <description>
       valdr .NET parses C# classes for DataAnnotation attributes and extracts their information into a JavaScript file, which includes the metadata to be used by valdr.
@@ -22,15 +22,11 @@ This allows to apply the exact same validation rules on the server and on the An
     <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
     <copyright>Copyright © Netcetera 2016</copyright>
     <dependencies>
-      <group targetFramework="net461">
-        <dependency id="Newtonsoft.Json" version="7.0.1" />
-      </group>
     </dependencies>
     <references></references>
     <tags>valdr angular angularjs</tags>
   </metadata>
   <files>
-    <file src="lib\Nca.Valdr.dll" target="lib/net45" />
     <file src="lib\Nca.Valdr.Console.exe" target="tools" />
     <file src="lib\Nca.Valdr.Console.exe.config" target="tools" />
     <file src="lib\Nca.Valdr.dll" target="tools" />
