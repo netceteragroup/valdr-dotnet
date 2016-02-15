@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.1.2 - 2016-02-15
+- Separate assembly loading from parser logic
+- Nca.Valdr.Core NuGet package to be used for runtime generation of valdr contraints
+- Introduced two attributes than can be used in place of DataContract/DataMember
+- Strongly named Nca.Valdr to be consumable from assemblies that are strong-name signed
+
 ## 1.1.1 - 2016-01-10
 - Assembly resolving bug fixed
 
