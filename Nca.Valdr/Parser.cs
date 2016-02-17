@@ -252,10 +252,10 @@
             {
                 var resourceManager = new ResourceManager(resourceType);
                 var manifests = resourceType.Assembly.GetManifestResourceNames();
-                if (manifests.Length == 1)
+                var baseName = manifests.FirstOrDefault(m => m.Contains(resourceType.Name));
+                if (!string.IsNullOrEmpty(baseName))
                 {
-                    var manifest = manifests[0].Replace(".resources", string.Empty);
-                    resourceManager = new ResourceManager(manifest, resourceType.Assembly);
+                    resourceManager = new ResourceManager(baseName.Replace(".resources", string.Empty), resourceType.Assembly);
                 }
 
                 result = resourceManager.GetString(resourceName, culture);
