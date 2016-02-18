@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Reflection;
 using System.Runtime.InteropServices;
 
 // General Information about an assembly is controlled through the following 
@@ -9,3 +10,6 @@ using System.Runtime.InteropServices;
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("ace3179e-714b-4317-92f3-796618c04e39")]
+
+// Assembly marked as CLS-compliant.
+[assembly: CLSCompliant(true)]

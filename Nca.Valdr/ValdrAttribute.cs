@@ -5,7 +5,7 @@
     /// <summary>
     /// Valdr attribute.
     /// </summary>
-    public class ValdrAttribute
+    internal class ValdrAttribute
     {
         /// <summary>
         /// Attribute name.

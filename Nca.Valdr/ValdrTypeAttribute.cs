@@ -6,7 +6,7 @@
     /// Attribute provided for marking classes needing valdr constraints
     /// </summary>
     [AttributeUsage(AttributeTargets.Class)]
-    public class ValdrType : Attribute
+    public sealed class ValdrTypeAttribute : Attribute
     {
         /// <summary>
         /// Name used for valdr constraint

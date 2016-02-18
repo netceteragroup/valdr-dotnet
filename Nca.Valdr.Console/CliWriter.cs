@@ -13,13 +13,13 @@
 
         public override Encoding Encoding => new UTF8Encoding();
 
-        public override void Write(string message)
+        public override void Write(string value)
         {
-            _writer.Write(message);
+            _writer.Write(value);
         }
-        public override void WriteLine(string message)
+        public override void WriteLine(string value)
         {
-            _writer.WriteLine(message);
+            _writer.WriteLine(value);
         }
     }
 }

@@ -7,7 +7,6 @@
     using System.Runtime.Serialization;
     using Newtonsoft.Json.Linq;
 
-
     /// <summary>
     /// Valdr metadata generator for console application - handles assembly loading and delegates to parser
     /// </summary>
@@ -16,8 +15,8 @@
         private readonly string _assemblyFile;
         private readonly string _targetNamespace;
         private readonly CultureInfo _culture;
+        private readonly Parser _parser;
         private Assembly _assembly;
-        private Parser _parser;
 
         /// <summary>
         /// Parser contructor
@@ -32,7 +31,7 @@
                 throw new ArgumentException("Parameter \"assemblyFile\" is null or empty.");
             }
 
-            _assemblyFile = assemblyFile.StartsWith("file:///") ? assemblyFile.Substring(8) : assemblyFile;
+            _assemblyFile = assemblyFile.StartsWith("file:///", StringComparison.OrdinalIgnoreCase) ? assemblyFile.Substring(8) : assemblyFile;
             if (!File.Exists(_assemblyFile))
             {
                 throw new ArgumentException($"Specified \"assemblyFile\" not found: {_assemblyFile}");

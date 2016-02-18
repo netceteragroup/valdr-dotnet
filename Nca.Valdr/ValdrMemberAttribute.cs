@@ -6,7 +6,7 @@
     /// Attribute provided for marking properties as valdr members
     /// </summary>
     [AttributeUsage(AttributeTargets.Property)]
-    public class ValdrMember : Attribute
+    public sealed class ValdrMemberAttribute : Attribute
     {
         /// <summary>
         /// Name used for member in constraints

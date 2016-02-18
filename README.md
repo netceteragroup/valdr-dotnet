@@ -76,9 +76,9 @@ This will add the core library to your project, which brings with it the parser 
 				//optional namespace filter - StartsWith search
 				null, 
 				//type and member name on type used to identify and name constraints
-                new ValdrTypeAttributeDescriptor(typeof(ValdrType), nameof(ValdrType.Name)), 
+                new ValdrTypeAttributeDescriptor(typeof(ValdrTypeAttribute), nameof(ValdrTypeAttribute.Name)), 
 				//type name used to identify data members
-				nameof(ValdrMember), 
+				nameof(ValdrMemberAttribute), 
 				//assembly(s) to parse for constraint generation
                 Assembly.GetAssembly(typeof (MyDTO)) 
 			);

@@ -45,17 +45,22 @@
         /// <param name="attribute">Description of attribute used to identify ValdrType classes.  NOTE: attributes used here MUST use named arguments to be picked up correctly by parser</param>
         /// <param name="dataMemberAttributeName">Name of attribute used to identify DataMembers (optional).  NOTE: attributes MUST use named arguments to be picked up correctly by parser</param>
         /// <param name="assemblies">Assemblies to parse for models needing valdr constraints.</param>
+        /// <exception cref="ArgumentNullException">Assembies is null.</exception>
         /// <returns>JSON metadata object</returns>
         public JObject Parse(CultureInfo culture, string targetNamespace, ValdrTypeAttributeDescriptor attribute, string dataMemberAttributeName, params Assembly[] assemblies)
         {
-            targetNamespace = targetNamespace ?? string.Empty;
+            if (assemblies == null)
+            {
+                throw new ArgumentNullException(nameof(assemblies));
+            }
 
+            targetNamespace = targetNamespace ?? string.Empty;
             var jsonResult = new JObject();
 
             foreach (var assembly in assemblies)
             {
                 var typeQuery = assembly.GetTypes()
-                    .Where(t => t.IsClass && t.Namespace != null && t.Namespace.StartsWith(targetNamespace) &&
+                    .Where(t => t.IsClass && t.Namespace != null && t.Namespace.StartsWith(targetNamespace, StringComparison.OrdinalIgnoreCase) &&
                                 t.GetCustomAttributesData()
                                     .Any(a => a.AttributeType.Name == attribute.TypeName));
 
@@ -263,7 +268,7 @@
 
             if (args.Length > 0 && result != null)
             {
-                result = string.Format(result, args);
+                result = string.Format(culture, result, args);
             }
 
             return result;

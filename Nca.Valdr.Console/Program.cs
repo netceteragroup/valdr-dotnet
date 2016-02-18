@@ -21,7 +21,7 @@
             {
                 _options = new CliOptions(args);
 
-                OutWriter.WriteLine($"Nca.Valdr -> { _options.OutputFilename} {_options.Culture}");
+                OutWriter.WriteLine($"Nca.Valdr -> { _options.OutputFileName} {_options.Culture}");
 
                 new CliRunner(_options).Execute();
             }

@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
@@ -13,3 +14,6 @@ using System.Runtime.InteropServices;
 
 // Required for unit testing the internal interface
 [assembly: InternalsVisibleTo("Nca.Valdr.Tests")]
+
+// Assembly marked as CLS-compliant.
+[assembly: CLSCompliant(true)]

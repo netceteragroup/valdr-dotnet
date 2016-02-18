@@ -20,11 +20,11 @@
         /// </summary>
         public void Execute()
         {
-            var parser = new AssemblyParser(_options.AssemblyFilename, _options.TargetNamespace, _options.Culture);
+            var parser = new AssemblyParser(_options.AssemblyFileName, _options.TargetNamespace, _options.Culture);
             var result = parser.Parse();
             var output = BuildJavaScript(_options.Application, result.ToString());
 
-            using (var writer = new StreamWriter(_options.OutputFilename))
+            using (var writer = new StreamWriter(_options.OutputFileName))
             {
                 writer.Write(output);
             }

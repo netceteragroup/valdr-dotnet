@@ -21,7 +21,7 @@
             // Act
             var specificCulture = !string.IsNullOrEmpty(culture) ? CultureInfo.CreateSpecificCulture(culture) : null;
 
-            var result = parser.Parse(specificCulture, targetNamespace, new ValdrTypeAttributeDescriptor(typeof(ValdrType), nameof(ValdrType.Name)), nameof(ValdrMember), Assembly.GetAssembly(typeof(ParserTests)));
+            var result = parser.Parse(specificCulture, targetNamespace, new ValdrTypeAttributeDescriptor(typeof(ValdrTypeAttribute), nameof(ValdrTypeAttribute.Name)), nameof(ValdrMemberAttribute), Assembly.GetAssembly(typeof(ParserTests)));
 
             // Assert
             Assert.That(result.Count, Is.EqualTo(2), "Number of children not as expected.");
@@ -42,7 +42,7 @@
             // Act
             var specificCulture = !string.IsNullOrEmpty(culture) ? CultureInfo.CreateSpecificCulture(culture) : null;
 
-            var result = parser.Parse(specificCulture, targetNamespace, new ValdrTypeAttributeDescriptor(typeof(ValdrType), nameof(ValdrType.Name)), nameof(ValdrMember), Assembly.GetAssembly(typeof(ParserTests)));
+            var result = parser.Parse(specificCulture, targetNamespace, new ValdrTypeAttributeDescriptor(typeof(ValdrTypeAttribute), nameof(ValdrTypeAttribute.Name)), nameof(ValdrMemberAttribute), Assembly.GetAssembly(typeof(ParserTests)));
 
             // Assert
             Assert.That(result.Count, Is.EqualTo(2), "Number of children not as expected.");

@@ -19,13 +19,13 @@
                 switch (arg.Substring(0, 2))
                 {
                     case "-i":
-                        AssemblyFilename = arg.Substring(3);
+                        AssemblyFileName = arg.Substring(3);
                         break;
                     case "-n":
                         TargetNamespace = arg.Substring(3);
                         break;
                     case "-o":
-                        OutputFilename = arg.Substring(3);
+                        OutputFileName = arg.Substring(3);
                         break;
                     case "-a":
                         Application = arg.Substring(3);
@@ -38,8 +38,8 @@
                 }
             }
 
-            if (string.IsNullOrEmpty(AssemblyFilename) ||
-                string.IsNullOrEmpty(OutputFilename))
+            if (string.IsNullOrEmpty(AssemblyFileName) ||
+                string.IsNullOrEmpty(OutputFileName))
             {
                 throw new ArgumentException("Required parameter missing.");
             }
@@ -48,7 +48,7 @@
         /// <summary>
         /// Input assembly path
         /// </summary>
-        public string AssemblyFilename { get; }
+        public string AssemblyFileName { get; }
 
         /// <summary>
         /// Target namespace filter (default: all)
@@ -58,7 +58,7 @@
         /// <summary>
         /// Output file path
         /// </summary>
-        public string OutputFilename { get; }
+        public string OutputFileName { get; }
 
         /// <summary>
         /// AngularJS application name (default: app)

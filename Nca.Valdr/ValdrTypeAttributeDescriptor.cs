@@ -22,8 +22,14 @@
         /// </summary>
         /// <param name="type">Type to use to mark objects needing valdr constraints generated</param>
         /// <param name="nameProperty">Name of property exposed by <paramref name="type"/> used to drive naming in constraint generation</param>
+        /// <exception cref="ArgumentNullException">Type is null.</exception>
         public ValdrTypeAttributeDescriptor(Type type, string nameProperty)
         {
+            if (type == null)
+            {
+                throw new ArgumentNullException(nameof(type));
+            }
+
             TypeName = type.Name;
             ValdrTypePropertyName = nameProperty;
         }
