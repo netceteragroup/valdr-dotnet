@@ -102,6 +102,14 @@
             Description of attribute used to identify classes needing valdr validation constraints generated.  NOTE: attributes MUST use named arguments to be picked up correctly by parser
             </summary>
         </member>
+        <member name="M:Nca.Valdr.ValdrTypeAttributeDescriptor.#ctor(System.Type,System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Nca.Valdr.ValdrTypeAttributeDescriptor"/> class.
+            </summary>
+            <param name="type">Type to use to mark objects needing valdr constraints generated</param>
+            <param name="nameProperty">Name of property exposed by <paramref name="type"/> used to drive naming in constraint generation</param>
+            <exception cref="T:System.ArgumentNullException">Type is null.</exception>
+        </member>
         <member name="P:Nca.Valdr.ValdrTypeAttributeDescriptor.TypeName">
             <summary>
             Name of the attribute type
@@ -111,14 +119,6 @@
             <summary>
             Name of property exposed by the attribute type that should drive naming in constraint generation
             </summary>
-        </member>
-        <member name="M:Nca.Valdr.ValdrTypeAttributeDescriptor.#ctor(System.Type,System.String)">
-            <summary>
-            ValdrTypeAttributeDescriptor constructor
-            </summary>
-            <param name="type">Type to use to mark objects needing valdr constraints generated</param>
-            <param name="nameProperty">Name of property exposed by <paramref name="type"/> used to drive naming in constraint generation</param>
-            <exception cref="T:System.ArgumentNullException">Type is null.</exception>
         </member>
     </members>
 </doc>

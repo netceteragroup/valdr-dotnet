@@ -14,7 +14,7 @@
             var runner = new CliRunner(new CliOptions(new[] { "-i:x", "-o:y" }));
 
             // Act
-            var result = runner.BuildJavaScript("app", "");
+            var result = runner.BuildJavaScript("app", string.Empty);
 
             // Assert
             Assert.That(result, Is.Not.Null);

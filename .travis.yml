@@ -1,0 +1,8 @@
+language: csharp
+solution: Nca.Valdr.sln
+install:
+  - nuget restore Nca.Valdr.sln
+  - nuget install NUnit.Runners -Version 2.6.4 -OutputDirectory testrunner
+script:
+  - xbuild /p:Configuration=Debug Nca.Valdr.sln
+  - mono ./testrunner/NUnit.Runners.2.6.4/tools/nunit-console.exe ./Nca.Valdr.Tests/bin/Debug/Nca.Valdr.Tests.dll

@@ -73,7 +73,7 @@
                         var contractName = contract.NamedArguments
                             .FirstOrDefault(n => n.MemberName == attribute.ValdrTypePropertyName);
                         var typeName = contractName.TypedValue.Value != null
-                            ? (string) contractName.TypedValue.Value
+                            ? (string)contractName.TypedValue.Value
                             : type.Name;
                         jsonResult[typeName] = new JObject();
 
@@ -84,6 +84,7 @@
                     }
                 }
             }
+
             return jsonResult;
         }
 

@@ -20,7 +20,7 @@
         [TestCase]
         public void CliOptionsInvalidParameterTest()
         {
-            var ex = Assert.Throws<ArgumentException>(() => _options = new CliOptions(new[] { "-x:wrong"}));
+            var ex = Assert.Throws<ArgumentException>(() => _options = new CliOptions(new[] { "-x:wrong" }));
             Assert.That(ex.Message, Is.EqualTo("Invalid parameter."));
             Assert.That(_options, Is.Null);
         }

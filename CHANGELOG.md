@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.1.3 - 2016-02-22
+- Separate assembly loading from parser logic
+
 ## 1.1.2 - 2016-02-15
 - Separate assembly loading from parser logic
 - Nca.Valdr.Core NuGet package to be used for runtime generation of valdr contraints

@@ -17,6 +17,7 @@
         {
             _writer.Write(value);
         }
+
         public override void WriteLine(string value)
         {
             _writer.WriteLine(value);

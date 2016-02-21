@@ -19,7 +19,7 @@
         private Assembly _assembly;
 
         /// <summary>
-        /// Parser contructor
+        /// Initializes a new instance of the <see cref="AssemblyParser"/> class.
         /// </summary>
         /// <param name="assemblyFile">Input assembly path.</param>
         /// <param name="targetNamespace">Target namespace for parsing.</param>
