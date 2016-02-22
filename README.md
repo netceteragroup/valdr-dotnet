@@ -32,7 +32,7 @@ PM> Install-Package Nca.Valdr
 
 In Visual Studio, right-click your project and under Properties/Build Events add the following Post-build event:
 ```Batchfile
-$(SolutionDir)packages\Nca.Valdr.1.1.1\tools\Nca.Valdr.Console.exe -i:$(TargetDir)$(TargetFileName) -o:$(ProjectDir)app\app.valdr.js
+$(SolutionDir)packages\Nca.Valdr.1.1.3\tools\Nca.Valdr.Console.exe -i:$(TargetDir)$(TargetFileName) -o:$(ProjectDir)app\app.valdr.js
 ```
 
 Nca.Valdr.exe accepts the following parameters:
