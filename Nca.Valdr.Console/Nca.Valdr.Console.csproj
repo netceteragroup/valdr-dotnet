@@ -65,7 +65,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>xcopy /y /d "$(TargetPath)" "$(SolutionDir)Nca.Valdr.Nuget\lib\"
+    <PostBuildEvent Condition="'$(OS)' == 'Windows_NT'">xcopy /y /d "$(TargetPath)" "$(SolutionDir)Nca.Valdr.Nuget\lib\"
 xcopy /y /d "$(TargetPath).config" "$(SolutionDir)Nca.Valdr.Nuget\lib\"
 xcopy /y /d "$(BIN_PATH)Nca.Valdr.dll" "$(SolutionDir)Nca.Valdr.Nuget\lib\"
 xcopy /y /d "$(BIN_PATH)Newtonsoft.Json.dll" "$(SolutionDir)Nca.Valdr.Nuget\lib\"</PostBuildEvent>

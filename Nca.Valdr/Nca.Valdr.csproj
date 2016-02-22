@@ -62,7 +62,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
+  <PropertyGroup Condition="'$(OS)' == 'Windows_NT'">
     <PostBuildEvent>xcopy /y /d "$(TargetPath)" "$(SolutionDir)Nca.Valdr.Core.Nuget\lib\"
 xcopy /y /d "$(BIN_PATH)Nca.Valdr.xml" "$(SolutionDir)Nca.Valdr.Core.Nuget\lib\"</PostBuildEvent>
   </PropertyGroup>
