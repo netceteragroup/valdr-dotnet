@@ -1,7 +1,9 @@
 # Changelog
 
 ## 1.1.3 - 2016-02-22
-- Separate assembly loading from parser logic
+- Fixed bug with multiple resource files
+- Rename ValdrType/ValdrMember to ...Attribute
+- Fixed some analysis/styleCop recommendations
 
 ## 1.1.2 - 2016-02-15
 - Separate assembly loading from parser logic
