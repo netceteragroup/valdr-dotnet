@@ -13,7 +13,7 @@
         public void CliOptionsWithoutParameterTest()
         {
             var ex = Assert.Throws<ArgumentNullException>(() => _options = new CliOptions(null));
-            Assert.That(ex.Message, Is.EqualTo("Value cannot be null.\r\nParameter name: args"));
+            Assert.That(ex.Message.Substring(0, 21), Is.EqualTo("Value cannot be null."));
             Assert.That(_options, Is.Null);
         }
 

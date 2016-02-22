@@ -1,6 +1,7 @@
 # valdr .NET Validation
 
 [![Build status](https://ci.appveyor.com/api/projects/status/v9o6s7bkq04k8hlr?svg=true)](https://ci.appveyor.com/project/ilbertz/valdr-dotnet)
+[![Build Status](https://travis-ci.org/netceteragroup/valdr-dotnet.svg?branch=master)](https://travis-ci.org/netceteragroup/valdr-dotnet)
 [![Coverage Status](https://coveralls.io/repos/netceteragroup/valdr-dotnet/badge.svg?branch=master&service=github)](https://coveralls.io/github/netceteragroup/valdr-dotnet?branch=master)
 
 .NET plugin for [valdr](https://github.com/netceteragroup/valdr),
