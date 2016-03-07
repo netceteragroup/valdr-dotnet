@@ -1,7 +1,9 @@
 ﻿namespace Nca.Valdr.Tests
 {
+    using System;
     using System.Globalization;
     using System.Reflection;
+    using Newtonsoft.Json.Linq;
     using NUnit.Framework;
 
     [TestFixture]
@@ -34,7 +36,7 @@
         [TestCase("Nca.Valdr.Tests.DTOs", "de")]
         [TestCase("Nca.Valdr.Tests", "de")]
         [TestCase(null, "de")]
-        public void AssemblyParserParseDeTest(string targetNamespace, string culture)
+        public void ParserParseDeTest(string targetNamespace, string culture)
         {
             // Arrange
             var parser = new Parser();
@@ -50,6 +52,21 @@
             Assert.That((int)result.SelectToken("address.zipCode.size.min"), Is.EqualTo(4));
             Assert.That((int)result.SelectToken("person.age.max.value"), Is.EqualTo(99));
             Assert.That((string)result.SelectToken("person.url.url.message"), Is.EqualTo("Must be a valid URL."));
+        }
+
+        [Test]
+        public void ParserParseWithoutParameterTest()
+        {
+            // Arrange
+            var parser = new Parser();
+            JObject result = null;
+
+            // Act
+            var ex = Assert.Throws<ArgumentNullException>(() => result = parser.Parse(null, null, null, null));
+
+            // Assert
+            Assert.That(ex.Message.Substring(0, 21), Is.EqualTo("Value cannot be null."));
+            Assert.That(result, Is.Null);
         }
     }
 }

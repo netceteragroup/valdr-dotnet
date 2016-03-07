@@ -1,7 +1,7 @@
 ﻿namespace Nca.Valdr.Tests
 {
+    using Console;
     using NUnit.Framework;
-    using Nca.Valdr.Console;
 
     [TestFixture]
     public class AssemblyParserTests

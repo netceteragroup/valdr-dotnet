@@ -49,18 +49,16 @@
         /// <returns>JSON metadata object</returns>
         public JObject Parse(CultureInfo culture, string targetNamespace, ValdrTypeAttributeDescriptor attribute, string dataMemberAttributeName, params Assembly[] assemblies)
         {
-            if (assemblies == null)
+            if (assemblies == null || assemblies.Length == 0)
             {
                 throw new ArgumentNullException(nameof(assemblies));
             }
 
-            targetNamespace = targetNamespace ?? string.Empty;
             var jsonResult = new JObject();
-
             foreach (var assembly in assemblies)
             {
                 var typeQuery = assembly.GetTypes()
-                    .Where(t => t.IsClass && t.Namespace != null && t.Namespace.StartsWith(targetNamespace, StringComparison.OrdinalIgnoreCase) &&
+                    .Where(t => t.IsClass && t.Namespace != null && t.Namespace.StartsWith(targetNamespace ?? string.Empty, StringComparison.OrdinalIgnoreCase) &&
                                 t.GetCustomAttributesData()
                                     .Any(a => a.AttributeType.Name == attribute.TypeName));
 

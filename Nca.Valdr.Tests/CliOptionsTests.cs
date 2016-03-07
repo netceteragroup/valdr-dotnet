@@ -9,7 +9,7 @@
     {
         private CliOptions _options;
 
-        [TestCase]
+        [Test]
         public void CliOptionsWithoutParameterTest()
         {
             var ex = Assert.Throws<ArgumentNullException>(() => _options = new CliOptions(null));
@@ -17,7 +17,7 @@
             Assert.That(_options, Is.Null);
         }
 
-        [TestCase]
+        [Test]
         public void CliOptionsInvalidParameterTest()
         {
             var ex = Assert.Throws<ArgumentException>(() => _options = new CliOptions(new[] { "-x:wrong" }));
@@ -25,7 +25,7 @@
             Assert.That(_options, Is.Null);
         }
 
-        [TestCase]
+        [Test]
         public void CliOptionsParameterMissingTest()
         {
             var ex = Assert.Throws<ArgumentException>(() => _options = new CliOptions(new[] { "-a:app" }));

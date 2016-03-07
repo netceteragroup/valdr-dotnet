@@ -6,7 +6,7 @@
     [TestFixture]
     public class CliWriterTests
     {
-        [TestCase]
+        [Test]
         public void CliWriterWriteTest()
         {
             using (var writer = new CliWriter())
@@ -15,7 +15,7 @@
             }
         }
 
-        [TestCase]
+        [Test]
         public void CliWriterWriteLineTest()
         {
             using (var writer = new CliWriter())

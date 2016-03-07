@@ -7,7 +7,7 @@
     [TestFixture]
     public class CliRunnerTests
     {
-        [TestCase]
+        [Test]
         public void CliRunnerBuildJavaScriptTest()
         {
             // Arrange
@@ -21,7 +21,7 @@
             Assert.That(result, Is.Not.Empty);
         }
 
-        [TestCase]
+        [Test]
         public void CliRunnerBuildCompleteJavaScriptTest()
         {
             // Arrange
