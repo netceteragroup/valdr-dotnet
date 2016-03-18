@@ -35,7 +35,7 @@
             // Assert
             var appValdrJsFile = File.OpenText("../../app/app.valdr.js");
             var fileContent = appValdrJsFile.ReadToEnd();
-            Assert.That(result, Is.EqualTo(fileContent));
+            Assert.That(result.Replace("\r", string.Empty), Is.EqualTo(fileContent.Replace("\r", string.Empty)));
         }
     }
 }
