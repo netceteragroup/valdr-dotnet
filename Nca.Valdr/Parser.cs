@@ -21,6 +21,7 @@
         /// <param name="attribute">Description of attribute used to identify ValdrType classes.  NOTE: attributes used here MUST use named arguments to be picked up correctly by parser</param>
         /// <param name="dataMemberAttributeName">Name of attribute used to identify DataMembers (optional).  NOTE: attributes MUST use named arguments to be picked up correctly by parser</param>
         /// <param name="assemblies">Assemblies to parse for models needing valdr constraints.</param>
+        /// <exception cref="ArgumentNullException">Assembies is null.</exception>
         /// <returns>JSON metadata object</returns>
         JObject Parse(CultureInfo culture, string targetNamespace, ValdrTypeAttributeDescriptor attribute, string dataMemberAttributeName, params Assembly[] assemblies);
     }
@@ -37,16 +38,7 @@
         private const string UrlMessage = "{0} must be a valid URL.";
         private const string RegexMessage = "{0} must have a valid pattern.";
 
-        /// <summary>
-        /// Parses classes from assemblies provided into valdr constraint metadata.
-        /// </summary>
-        /// <param name="culture">Culture to use when resolving validation messages from resources.</param>
-        /// <param name="targetNamespace">String to filter namespaces checked - if provided, only namespaces starting with the filter string will be considered.</param>
-        /// <param name="attribute">Description of attribute used to identify ValdrType classes.  NOTE: attributes used here MUST use named arguments to be picked up correctly by parser</param>
-        /// <param name="dataMemberAttributeName">Name of attribute used to identify DataMembers (optional).  NOTE: attributes MUST use named arguments to be picked up correctly by parser</param>
-        /// <param name="assemblies">Assemblies to parse for models needing valdr constraints.</param>
-        /// <exception cref="ArgumentNullException">Assembies is null.</exception>
-        /// <returns>JSON metadata object</returns>
+        /// <inheritdoc/>
         public JObject Parse(CultureInfo culture, string targetNamespace, ValdrTypeAttributeDescriptor attribute, string dataMemberAttributeName, params Assembly[] assemblies)
         {
             if (assemblies == null || assemblies.Length == 0)

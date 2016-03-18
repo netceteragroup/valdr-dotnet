@@ -62,7 +62,7 @@ This will add the core library to your project, which brings with it the parser 
     {
         private readonly IParser _constraintParser;
 
-        public LaunchController(IParser constraintParser)
+        public ConstraintsController(IParser constraintParser)
         {
             _constraintParser = constraintParser;
         }
