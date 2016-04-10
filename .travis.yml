@@ -7,4 +7,4 @@ install:
   - nuget install NUnit.Runners -Version 2.6.4 -OutputDirectory testrunner
 script:
   - xbuild /p:Configuration=Debug Nca.Valdr.sln /p:TargetFrameworkVersion="v4.5" /p:DebugSymbols=False
-  - mono ./testrunner/NUnit.Runners.2.6.4/tools/nunit-console.exe ./Nca.Valdr.Tests/bin/Debug/Nca.Valdr.Tests.dll
+  - mono ./testrunner/NUnit.Runners.2.6.4/tools/nunit-console.exe ./src/Nca.Valdr.Tests/bin/Debug/Nca.Valdr.Tests.dll

@@ -22,5 +22,10 @@
         {
             _writer.WriteLine(value);
         }
+
+        protected override void Dispose(bool disposing)
+        {
+            _writer.Dispose();
+        }
     }
 }

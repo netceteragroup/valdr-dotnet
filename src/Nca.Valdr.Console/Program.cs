@@ -36,6 +36,10 @@
             {
                 OutWriter.WriteLine(ex.Message);
             }
+            finally
+            {
+                OutWriter.Dispose();
+            }
         }
     }
 }

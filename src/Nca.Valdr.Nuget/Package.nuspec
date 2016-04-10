@@ -17,7 +17,7 @@ This allows to apply the exact same validation rules on the server and on the An
     </summary>
     <language>en-US</language>
     <projectUrl>https://github.com/netceteragroup/valdr-dotnet</projectUrl>
-    <iconUrl>https://raw.githubusercontent.com/netceteragroup/valdr-dotnet/master/Nca.Valdr.Nuget/content/Icon.png</iconUrl>
+    <iconUrl>https://raw.githubusercontent.com/netceteragroup/valdr-dotnet/master/src/Nca.Valdr.Nuget/content/Icon.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <licenseUrl>http://opensource.org/licenses/MIT</licenseUrl>
     <copyright>Copyright © Netcetera 2016</copyright>

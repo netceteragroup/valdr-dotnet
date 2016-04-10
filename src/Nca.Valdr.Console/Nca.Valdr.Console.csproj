@@ -63,12 +63,16 @@
       <Name>Nca.Valdr</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Analyzer Include="..\..\packages\System.Runtime.Analyzers.1.1.0\analyzers\dotnet\cs\System.Runtime.Analyzers.dll" />
+    <Analyzer Include="..\..\packages\System.Runtime.Analyzers.1.1.0\analyzers\dotnet\cs\System.Runtime.CSharp.Analyzers.dll" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent Condition="'$(OS)' == 'Windows_NT'">xcopy /y /d "$(TargetPath)" "$(SolutionDir)Nca.Valdr.Nuget\lib\"
-xcopy /y /d "$(TargetPath).config" "$(SolutionDir)Nca.Valdr.Nuget\lib\"
-xcopy /y /d "$(BIN_PATH)Nca.Valdr.dll" "$(SolutionDir)Nca.Valdr.Nuget\lib\"
-xcopy /y /d "$(BIN_PATH)Newtonsoft.Json.dll" "$(SolutionDir)Nca.Valdr.Nuget\lib\"</PostBuildEvent>
+    <PostBuildEvent Condition="'$(OS)' == 'Windows_NT'">xcopy /y /d "$(TargetPath)" "$(SolutionDir)src\Nca.Valdr.Nuget\lib\"
+xcopy /y /d "$(TargetPath).config" "$(SolutionDir)src\Nca.Valdr.Nuget\lib\"
+xcopy /y /d "$(BIN_PATH)Nca.Valdr.dll" "$(SolutionDir)src\Nca.Valdr.Nuget\lib\"
+xcopy /y /d "$(BIN_PATH)Newtonsoft.Json.dll" "$(SolutionDir)src\Nca.Valdr.Nuget\lib\"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

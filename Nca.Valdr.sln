@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nca.Valdr.Tests", "Nca.Valdr.Tests\Nca.Valdr.Tests.csproj", "{067456C0-086C-46A8-B37F-1405717B7BFC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nca.Valdr.Tests", "src\Nca.Valdr.Tests\Nca.Valdr.Tests.csproj", "{067456C0-086C-46A8-B37F-1405717B7BFC}"
 	ProjectSection(ProjectDependencies) = postProject
 		{4F4B955C-089A-4543-A2A5-99F74208C4CC} = {4F4B955C-089A-4543-A2A5-99F74208C4CC}
 		{ACE3179E-714B-4317-92F3-796618C04E39} = {ACE3179E-714B-4317-92F3-796618C04E39}
@@ -20,16 +20,23 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nca.Valdr.Nuget", "Nca.Valdr.Nuget\Nca.Valdr.Nuget.csproj", "{0451BAEF-DF2E-4B98-8644-94EE9415E389}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nca.Valdr.Nuget", "src\Nca.Valdr.Nuget\Nca.Valdr.Nuget.csproj", "{0451BAEF-DF2E-4B98-8644-94EE9415E389}"
+	ProjectSection(ProjectDependencies) = postProject
+		{4F4B955C-089A-4543-A2A5-99F74208C4CC} = {4F4B955C-089A-4543-A2A5-99F74208C4CC}
+		{ACE3179E-714B-4317-92F3-796618C04E39} = {ACE3179E-714B-4317-92F3-796618C04E39}
+	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nca.Valdr.Console", "Nca.Valdr.Console\Nca.Valdr.Console.csproj", "{4F4B955C-089A-4543-A2A5-99F74208C4CC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nca.Valdr.Console", "src\Nca.Valdr.Console\Nca.Valdr.Console.csproj", "{4F4B955C-089A-4543-A2A5-99F74208C4CC}"
 	ProjectSection(ProjectDependencies) = postProject
 		{ACE3179E-714B-4317-92F3-796618C04E39} = {ACE3179E-714B-4317-92F3-796618C04E39}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nca.Valdr", "Nca.Valdr\Nca.Valdr.csproj", "{ACE3179E-714B-4317-92F3-796618C04E39}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nca.Valdr", "src\Nca.Valdr\Nca.Valdr.csproj", "{ACE3179E-714B-4317-92F3-796618C04E39}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nca.Valdr.Core.Nuget", "Nca.Valdr.Core.Nuget\Nca.Valdr.Core.Nuget.csproj", "{FC3BB9C3-110C-4D9A-9F9E-05D0772D43AC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nca.Valdr.Core.Nuget", "src\Nca.Valdr.Core.Nuget\Nca.Valdr.Core.Nuget.csproj", "{FC3BB9C3-110C-4D9A-9F9E-05D0772D43AC}"
+	ProjectSection(ProjectDependencies) = postProject
+		{ACE3179E-714B-4317-92F3-796618C04E39} = {ACE3179E-714B-4317-92F3-796618C04E39}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
