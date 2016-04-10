@@ -49,6 +49,8 @@
     <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PastAttribute.cs" />
+    <Compile Include="FutureAttribute.cs" />
     <Compile Include="Parser.cs" />
     <Compile Include="Properties\CommonAssemblyInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

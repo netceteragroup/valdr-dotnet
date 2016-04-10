@@ -4,6 +4,44 @@
         <name>Nca.Valdr</name>
     </assembly>
     <members>
+        <member name="T:Nca.Valdr.PastAttribute">
+            <summary>
+            Past date validation.
+            </summary>
+        </member>
+        <member name="M:Nca.Valdr.PastAttribute.IsValid(System.Object)">
+            <summary>
+            Determines whether the specified date is in the past.
+            </summary>
+            <param name="value">The value of the date.</param>
+            <returns>true if the specified date is valid; otherwise, false.</returns>
+        </member>
+        <member name="M:Nca.Valdr.PastAttribute.FormatErrorMessage(System.String)">
+            <summary>
+            Formatting the error message.
+            </summary>
+            <param name="name">The name to include in the formatted message.</param>
+            <returns>The formatted error message.</returns>
+        </member>
+        <member name="T:Nca.Valdr.FutureAttribute">
+            <summary>
+            Future date validation.
+            </summary>
+        </member>
+        <member name="M:Nca.Valdr.FutureAttribute.IsValid(System.Object)">
+            <summary>
+            Determines whether the specified date is in the future.
+            </summary>
+            <param name="value">The value of the date.</param>
+            <returns>true if the specified date is valid; otherwise, false.</returns>
+        </member>
+        <member name="M:Nca.Valdr.FutureAttribute.FormatErrorMessage(System.String)">
+            <summary>
+            Formatting the error message.
+            </summary>
+            <param name="name">The name to include in the formatted message.</param>
+            <returns>The formatted error message.</returns>
+        </member>
         <member name="T:Nca.Valdr.IParser">
             <summary>
             Valdr metadata generator

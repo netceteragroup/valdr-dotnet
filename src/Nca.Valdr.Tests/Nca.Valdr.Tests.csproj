@@ -47,6 +47,7 @@
     <Compile Include="..\Nca.Valdr\Properties\CommonAssemblyInfo.cs">
       <Link>Properties\CommonAssemblyInfo.cs</Link>
     </Compile>
+    <Compile Include="ValidationTests.cs" />
     <Compile Include="DTOs\Texts.Designer.cs">
       <DependentUpon>Texts.resx</DependentUpon>
       <AutoGen>True</AutoGen>

@@ -37,6 +37,8 @@
         private const string EmailMessage = "{0} must be a valid E-Mail address.";
         private const string UrlMessage = "{0} must be a valid URL.";
         private const string RegexMessage = "{0} must have a valid pattern.";
+        private const string FutureMessage = "{0} must be in the future.";
+        private const string PastMessage = "{0} must be in the past.";
 
         /// <inheritdoc/>
         public JObject Parse(CultureInfo culture, string targetNamespace, ValdrTypeAttributeDescriptor attribute, string dataMemberAttributeName, params Assembly[] assemblies)
@@ -86,8 +88,11 @@
             var email = GetPropertyAttribute(property, nameof(EmailAddressAttribute));
             var url = GetPropertyAttribute(property, nameof(UrlAttribute));
             var regex = GetPropertyAttribute(property, nameof(RegularExpressionAttribute));
+            var future = GetPropertyAttribute(property, nameof(FutureAttribute));
+            var past = GetPropertyAttribute(property, nameof(PastAttribute));
 
-            if (required == null && length == null && range == null && email == null && url == null && regex == null)
+            if (required == null && length == null && range == null && email == null &&
+                url == null && regex == null && future == null && past == null)
             {
                 return;
             }
@@ -168,6 +173,26 @@
                 jsonResult[typeName][propertyName]["pattern"] = JObject.FromObject(new
                 {
                     value = regex.Pattern,
+                    message = text
+                });
+            }
+
+            if (future != null)
+            {
+                var text = GetText(future.Message ?? FutureMessage,
+                    future.ResourceType, future.ResourceName, culture, displayName);
+                jsonResult[typeName][propertyName]["future"] = JObject.FromObject(new
+                {
+                    message = text
+                });
+            }
+
+            if (past != null)
+            {
+                var text = GetText(past.Message ?? PastMessage,
+                    past.ResourceType, past.ResourceName, culture, displayName);
+                jsonResult[typeName][propertyName]["past"] = JObject.FromObject(new
+                {
                     message = text
                 });
             }

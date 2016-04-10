@@ -45,6 +45,19 @@
         "message": "Last name must be between 4 and 31 characters."
       }
     },
+    "validTo": {
+      "future": {
+        "message": "validTo must be in the future."
+      }
+    },
+    "birthday": {
+      "required": {
+        "message": "Birthday is required."
+      },
+      "past": {
+        "message": "Birthday must be in the past."
+      }
+    },
     "age": {
       "min": {
         "value": 0,

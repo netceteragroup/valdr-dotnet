@@ -29,6 +29,8 @@
             Assert.That(result.Count, Is.EqualTo(2), "Number of children not as expected.");
             Assert.That((string)result.SelectToken("address.city.required.message"), Is.EqualTo("City is required."));
             Assert.That((int)result.SelectToken("address.zipCode.size.min"), Is.EqualTo(4));
+            Assert.That((string)result.SelectToken("person.validTo.future.message"), Is.EqualTo("validTo must be in the future."));
+            Assert.That((string)result.SelectToken("person.birthday.past.message"), Is.EqualTo("Birthday must be in the past."));
             Assert.That((int)result.SelectToken("person.age.max.value"), Is.EqualTo(99));
             Assert.That((string)result.SelectToken("person.url.url.message"), Is.EqualTo("Must be a valid URL."));
         }

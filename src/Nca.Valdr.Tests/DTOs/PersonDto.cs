@@ -1,6 +1,7 @@
 ﻿namespace Nca.Valdr.Tests.DTOs
 {
     using Resources.Localization;
+    using System;
     using System.ComponentModel.DataAnnotations;
     using System.Runtime.Serialization;
 
@@ -30,6 +31,24 @@
         [StringLength(31, ErrorMessageResourceType = typeof(Texts), ErrorMessageResourceName = "Generic_MaximumLength", MinimumLength = 4)]
         [Display(ResourceType = typeof(Texts), Name = "Person_LastName")]
         public string LastName { get; set; }
+
+        /// <summary>
+        /// Valid to date.
+        /// </summary>
+        [DataMember(Name = "validTo")]
+        [ValdrMember(Name = "validTo")]
+        [Display(Name = @"validTo")]
+        [Future]
+        public DateTime? ValidTo { get; set; }
+
+        /// <summary>
+        /// The birthday.
+        /// </summary>
+        [DataMember(Name = "birthday")]
+        [ValdrMember(Name = "birthday")]
+        [Required]
+        [Past(ErrorMessage = @"Birthday must be in the past.")]
+        public DateTime Birthday { get; set; }
 
         /// <summary>
         /// Age of person
