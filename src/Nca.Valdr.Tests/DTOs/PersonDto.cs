@@ -46,9 +46,8 @@
         /// </summary>
         [DataMember(Name = "birthday")]
         [ValdrMember(Name = "birthday")]
-        [Required]
         [Past(ErrorMessage = @"Birthday must be in the past.")]
-        public DateTime Birthday { get; set; }
+        public DateTime? Birthday { get; set; }
 
         /// <summary>
         /// Age of person

@@ -51,9 +51,6 @@
       }
     },
     "birthday": {
-      "required": {
-        "message": "Birthday is required."
-      },
       "past": {
         "message": "Birthday must be in the past."
       }
