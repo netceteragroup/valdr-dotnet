@@ -70,6 +70,15 @@ namespace Resources.Localization {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Strasse.
+        /// </summary>
+        public static string Address_Street {
+            get {
+                return ResourceManager.GetString("Address_Street", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to PLZ.
         /// </summary>
         public static string Address_ZipCode {

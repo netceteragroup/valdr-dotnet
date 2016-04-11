@@ -11,6 +11,14 @@
     public sealed class FutureAttribute : ValidationAttribute
     {
         /// <summary>
+        /// Default constructor.
+        /// </summary>
+        public FutureAttribute()
+        {
+            ErrorMessage = "{0} must be in the future";
+        }
+
+        /// <summary>
         /// Determines whether the specified date is in the future.
         /// </summary>
         /// <param name="value">The value of the date.</param>

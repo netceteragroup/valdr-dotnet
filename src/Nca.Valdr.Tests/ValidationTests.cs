@@ -10,7 +10,7 @@
     public class ValidationTests
     {
         [Test]
-        public void PersonValidatorTest()
+        public void PersonValidatorInvalidTest()
         {
             // Arrange
             var person = new PersonDto
@@ -28,8 +28,27 @@
             Assert.That(isValid, Is.False);
             Assert.That(results[0].ErrorMessage, Is.EqualTo("First name is required."));
             Assert.That(results[1].ErrorMessage, Is.EqualTo("Last name is required."));
-            Assert.That(results[2].ErrorMessage, Is.EqualTo("The field validTo is invalid."));
+            Assert.That(results[2].ErrorMessage, Is.EqualTo("validTo must be in the future"));
             Assert.That(results[3].ErrorMessage, Is.EqualTo("Birthday must be in the past."));
+        }
+
+        [Test]
+        public void PersonValidatorValidTest()
+        {
+            // Arrange
+            var person = new PersonDto
+            {
+                FirstName = "Test",
+                LastName = "Test"
+            };
+            var context = new ValidationContext(person, serviceProvider: null, items: null);
+            var results = new List<ValidationResult>();
+
+            // Act
+            var isValid = Validator.TryValidateObject(person, context, results, validateAllProperties: true);
+
+            // Assert
+            Assert.That(isValid, Is.True);
         }
     }
 }

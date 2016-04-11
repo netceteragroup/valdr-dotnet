@@ -120,19 +120,22 @@
   <data name="Address_City" xml:space="preserve">
     <value>City</value>
   </data>
-  <data name="Address_ZipCode" xml:space="preserve">
-    <value>Zip code</value>
+  <data name="Address_Street" xml:space="preserve">
+    <value>Street</value>
   </data>
-  <data name="Generic_MaximumLength" xml:space="preserve">
-    <value>{0} must be between {1} and {2} characters.</value>
-  </data>
-  <data name="Generic_RequiredField" xml:space="preserve">
-    <value>{0} is required.</value>
+  <data name="Person_LastName" xml:space="preserve">
+    <value>Last name</value>
   </data>
   <data name="Person_FirstName" xml:space="preserve">
     <value>First name</value>
   </data>
-  <data name="Person_LastName" xml:space="preserve">
-    <value>Last name</value>
+  <data name="Generic_RequiredField" xml:space="preserve">
+    <value>{0} is required.</value>
+  </data>
+  <data name="Generic_MaximumLength" xml:space="preserve">
+    <value>{0} must be between {1} and {2} characters.</value>
+  </data>
+  <data name="Address_ZipCode" xml:space="preserve">
+    <value>Zip code</value>
   </data>
 </root>

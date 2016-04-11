@@ -5,12 +5,20 @@
     using System.Runtime.Serialization;
 
     /// <summary>
-    /// Address data transfer object
+    /// Address data transfer object.
     /// </summary>
     [DataContract(Name = "address")]
     [ValdrType(Name = "address")]
     public class AddressDto
     {
+        /// <summary>
+        /// Street name.
+        /// </summary>
+        [DataMember(Name = "street")]
+        [ValdrMember(Name = "street")]
+        [Display(ResourceType = typeof(Texts), Name = "Address_Street")]
+        public string Street { get; set; }
+
         /// <summary>
         /// City name
         /// </summary>

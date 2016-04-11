@@ -11,6 +11,14 @@
     public sealed class PastAttribute : ValidationAttribute
     {
         /// <summary>
+        /// Default constructor.
+        /// </summary>
+        public PastAttribute()
+        {
+            ErrorMessage = "{0} must be in the past";
+        }
+
+        /// <summary>
         /// Determines whether the specified date is in the past.
         /// </summary>
         /// <param name="value">The value of the date.</param>

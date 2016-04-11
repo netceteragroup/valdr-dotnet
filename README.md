@@ -32,7 +32,7 @@ PM> Install-Package Nca.Valdr
 
 In Visual Studio, right-click your project and under Properties/Build Events add the following Post-build event:
 ```Batchfile
-$(SolutionDir)packages\Nca.Valdr.1.1.3\tools\Nca.Valdr.Console.exe -i:$(TargetDir)$(TargetFileName) -o:$(ProjectDir)app\app.valdr.js
+$(SolutionDir)packages\Nca.Valdr.1.1.4\tools\Nca.Valdr.Console.exe -i:$(TargetDir)$(TargetFileName) -o:$(ProjectDir)app\app.valdr.js
 ```
 
 Nca.Valdr.exe accepts the following parameters:
@@ -58,20 +58,19 @@ This will add the core library to your project, which brings with it the parser 
 
 ```csharp
 
-    public class ConstraintsController : Controller
+    public class ConstraintsController : ApiController
     {
         private readonly IParser _constraintParser;
 
-        public ConstraintsController(IParser constraintParser)
+        public ConstraintsController()
         {
-            _constraintParser = constraintParser;
+            _constraintParser = new Parser();
         }
 
-        [Route("/api/Constraints")]
-        [ResponseCache(Duration = 600)]
-        public IActionResult Index()
+        [HttpGet]
+        public JObject Index()
         {
-            JObject constraints = _constraintParser.Parse(
+            return _constraintParser.Parse(
 				//optional culture (for resolving validation messages from resource files)				
 				CultureInfo.CurrentCulture, 
 				//optional namespace filter - StartsWith search
@@ -83,8 +82,6 @@ This will add the core library to your project, which brings with it the parser 
 				//assembly(s) to parse for constraint generation
                 Assembly.GetAssembly(typeof (MyDTO)) 
 			);
-            
-            return new ObjectResult(constraints);
         }
     }
 ```
@@ -125,8 +122,8 @@ The [.NET DataAnnotations](https://msdn.microsoft.com/en-us/library/system.compo
 | [StringLength](https://msdn.microsoft.com/en-us/library/system.componentmodel.dataannotations.stringlengthattribute%28v=vs.110%29.aspx) | [size](https://github.com/netceteragroup/valdr#size) |  |
 | | [digits](https://github.com/netceteragroup/valdr#digits) | unsupported |
 | [RegularExpression](https://msdn.microsoft.com/en-us/library/system.componentmodel.dataannotations.regularexpressionattribute%28v=vs.110%29.aspx) | [pattern](https://github.com/netceteragroup/valdr#partern) |  |
-| | [future](https://github.com/netceteragroup/valdr#future--past) | unsupported |
-| | [past](https://github.com/netceteragroup/valdr#future--past) | unsupported |
+| Future | [future](https://github.com/netceteragroup/valdr#future--past) | Nca.Valdr namespace |
+| Past | [past](https://github.com/netceteragroup/valdr#future--past) | Nca.Valdr namespace |
 | [EmailAddress](https://msdn.microsoft.com/en-us/library/system.componentmodel.dataannotations.emailaddressattribute%28v=vs.110%29.aspx) |[email](https://github.com/netceteragroup/valdr#email) |  |
 | [URL](https://msdn.microsoft.com/en-us/library/system.componentmodel.dataannotations.urlattribute%28v=vs.110%29.aspx) |[url](https://github.com/netceteragroup/valdr#url) |  |
 

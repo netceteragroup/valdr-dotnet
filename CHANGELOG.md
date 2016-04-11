@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.4 - 2016-04-11
+- Future and past validation attributes added
+- Moved the source to src folder
+
 ## 1.1.3 - 2016-02-22
 - Fixed bug with multiple resource files
 - Rename ValdrType/ValdrMember to ...Attribute
